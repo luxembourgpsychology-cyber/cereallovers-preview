@@ -7,12 +7,56 @@ Plain HTML, CSS, images and fonts. No build step, no dependencies, no database.
 |---|---|
 | `index.html` | the front door: two buttons |
 | `a.html` | **Option A, Ink** — cream paper ground, colour in the marks |
-| `b.html` | **Option B, Loud** — every section a full brand colour |
+| `b-september.html` | **Option B, Loud**, the September version — every section a full brand colour |
 | `hands.html` | nine handwriting faces, to settle which pen the site uses |
 | `img/` `mg/` `el/` `thumb/` | photographs, PP Migra outlines cut to SVG, toolbox elements, thumbnails |
 | `fonts/` `fonts.css` | the webfonts, served from this site, not from Google |
 | `vercel.json` | clean URLs (`/a` instead of `/a.html`), caching, no-index headers |
 | `robots.txt` | tells search engines to stay away |
+
+## New, October 2026: Option B pushed further (`/b`)
+
+`b.html` is now Option B with the volume up and the barista courses first. The September version
+of Option B is kept at `b-september.html` (`/b-september`). The front page shows the new one first,
+and `costs.html` explains what running it would cost.
+
+| file | what it is |
+|---|---|
+| `b.html` | **Option B, Louder**. Courses first, a "send me more info" note at the top, all four granolas, three coffees, bars, cookies |
+| `courses.json` | **the only file to edit to keep the courses fresh** |
+| `costs.html` | hosting, sign-up and upkeep costs, for the decision |
+| `img/b2/` | the new photographs, graded and cropped (no faces, no price tags) |
+| `mg/n1–n6.svg` | the N°1–N°6 numerals in Migra, cut from the toolbox, used as the navigation |
+
+### Keeping the course dates fresh
+
+Open `courses.json` on GitHub, click the pencil, change it, click **Commit changes**. Vercel
+publishes it within a minute.
+
+- Each date is one line under `"sessions"`. Dates are written `2026-10-24`. A professional
+  course over two mornings gets a `"start"` and an `"end"`.
+- A session disappears by itself the day after it ends. Nothing old ever shows.
+- Change `"updated"` to today's date whenever you edit. It is printed on the page.
+- `"show_prices": true` shows the `"price"` of each session. It is `false` now, as everywhere else.
+- Course descriptions, photos and the yellow ticker lines are in the same file.
+
+Keep the commas and quotes exactly as they are. If the page says "the course list did not load",
+a comma is missing. GitHub shows a red mark on the line.
+
+### The "send me more info" note
+
+It works now at no cost: "send it" opens the visitor's email app with the note written to
+hello@cereallovers.lu. To have notes arrive by themselves instead, make a free Formspree form,
+copy its link (it looks like `https://formspree.io/f/abcdwxyz`) and paste it between the quotes of
+`"endpoint"` in `courses.json`. The form asks for consent. Add a short privacy note before it goes
+on the real domain.
+
+### Where the files live on GitHub
+
+In the repository the site sits inside a folder also called `cereallovers-preview`. Edit or upload
+files inside that folder, not at the top level, or Vercel will not see them.
+
+---
 
 Both options have the same seven stops: Ouverture, Les produits, Les héros,
 La carte, Le mur, La maison, Finale. There is no menu bar. The round red mark

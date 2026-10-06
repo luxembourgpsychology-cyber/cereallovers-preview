@@ -1,0 +1,196 @@
+{
+  "_read_me": "This one file feeds the courses on /b. Change it, save it, and the page changes. Dates in YYYY-MM-DD. A session disappears by itself the day after its last date. 'updated' is printed on the page, so change it whenever you edit. Prices only show when show_prices is true.",
+  "updated": "2026-10-06",
+  "show_prices": false,
+  "signup": {
+    "endpoint": "",
+    "email": "hello@cereallovers.lu"
+  },
+  "ticker": [
+    "registered by the Government of Luxembourg as an accredited training centre",
+    "small groups · everybody pulls shots · nobody spectates",
+    "we train on Ascaso, the machine you meet in a real café",
+    "every level bookable all year round"
+  ],
+  "courses": [
+    {
+      "id": "hobby",
+      "n": "01",
+      "name": "HOBBY",
+      "kicker": "for home, for curiosity",
+      "colour": "#f8aba3",
+      "img": "img/b2/c-three-cups.webp",
+      "hand": "for when your home espresso keeps disappointing you.",
+      "facts": [
+        "one Saturday morning",
+        "09:30 to 12:30",
+        "at the shop, Place du Théâtre",
+        "no prerequisites"
+      ],
+      "learn": [
+        "pick your theme: N°1 the art of espresso, or N°2 the art of latte art",
+        "pull a decent shot",
+        "steam milk that does not squeak",
+        "come alone, as a pair or with friends"
+      ],
+      "book": {
+        "label": "send me the dates",
+        "url": ""
+      }
+    },
+    {
+      "id": "pro",
+      "n": "02",
+      "name": "PROFESSIONAL",
+      "kicker": "Barista · du grain à la tasse",
+      "colour": "#5fc5bf",
+      "img": "img/b2/c-ascaso.webp",
+      "hand": "for people who serve coffee to the public. or want to.",
+      "facts": [
+        "six hours over two mornings",
+        "09:00 to 12:00",
+        "in French",
+        "with House of Training"
+      ],
+      "learn": [
+        "morning one: theory at the Chambre de Commerce",
+        "morning two: hands on our machines",
+        "origins, processing, roasting, single origin or blend",
+        "taste wheel and cupping",
+        "extraction, grind, milk, latte art",
+        "machine and grinder maintenance"
+      ],
+      "book": {
+        "label": "register at houseoftraining.lu",
+        "url": "https://www.houseoftraining.lu"
+      }
+    },
+    {
+      "id": "master",
+      "n": "03",
+      "name": "PRIVATE & MASTER",
+      "kicker": "built around your bar",
+      "colour": "#f4b63f",
+      "img": "img/b2/c-pour.webp",
+      "hand": "the same good coffee, four hundred times in a row, on a Saturday.",
+      "facts": [
+        "private booking only",
+        "any date you choose",
+        "at our atelier or on your machine",
+        "for people already behind a bar"
+      ],
+      "learn": [
+        "calibration and workflow",
+        "recipe development",
+        "diagnosing a bar that has drifted",
+        "advanced latte art",
+        "teaching your own team so the standard survives you"
+      ],
+      "book": {
+        "label": "tell us what goes wrong",
+        "url": ""
+      }
+    },
+    {
+      "id": "team",
+      "n": "04",
+      "name": "TEAM BUILDING",
+      "kicker": "companies · HORECA · events",
+      "colour": "#8dc15b",
+      "img": "img/b2/c-latte-grid.webp",
+      "hand": "not a rope course. not a quiz.",
+      "facts": [
+        "small to large groups",
+        "90 minutes to a half day",
+        "at our atelier or at your office",
+        "HORECA staff trained on your own equipment"
+      ],
+      "learn": [
+        "latte art battle",
+        "cupping and tasting",
+        "blending, there is always a winner",
+        "coffee and chocolate pairing",
+        "brewing workshops, or fully custom"
+      ],
+      "book": {
+        "label": "tell us the group size",
+        "url": ""
+      }
+    },
+    {
+      "id": "online",
+      "n": "05",
+      "name": "ONLINE",
+      "kicker": "three programmes · EN / FR",
+      "colour": "#b87490",
+      "img": "img/b2/c-cupping.webp",
+      "hand": "not everything has to happen in a room.",
+      "facts": [
+        "start any time",
+        "English or French",
+        "good before a practical day"
+      ],
+      "learn": [
+        "Barista theory refresher",
+        "Barista theory, intermediate",
+        "Advanced barista, performance and calibration"
+      ],
+      "book": {
+        "label": "see coffeelovers.lu",
+        "url": "https://coffeelovers.lu"
+      }
+    }
+  ],
+  "sessions": [
+    {
+      "course": "pro",
+      "start": "2026-10-12",
+      "end": "2026-10-13",
+      "time": "09:00–12:00",
+      "where": "Chambre de Commerce + Cereal Lovers",
+      "note": "open group session",
+      "seats": "",
+      "price": ""
+    },
+    {
+      "course": "hobby",
+      "start": "2026-10-24",
+      "end": "",
+      "time": "09:30–12:30",
+      "where": "The shop · Place du Théâtre",
+      "note": "espresso or latte art, you choose",
+      "seats": "limited spots",
+      "price": "175 €"
+    },
+    {
+      "course": "pro",
+      "start": "2026-11-02",
+      "end": "2026-11-03",
+      "time": "09:00–12:00",
+      "where": "Chambre de Commerce + Cereal Lovers",
+      "note": "open group session",
+      "seats": "",
+      "price": ""
+    },
+    {
+      "course": "hobby",
+      "start": "2026-11-21",
+      "end": "",
+      "time": "09:30–12:30",
+      "where": "The shop · Place du Théâtre",
+      "note": "espresso or latte art, you choose",
+      "seats": "limited spots",
+      "price": "175 €"
+    },
+    {
+      "course": "hobby",
+      "start": "2026-12-19",
+      "end": "",
+      "time": "09:30–12:30",
+      "where": "The shop · Place du Théâtre",
+      "note": "espresso or latte art, you choose",
+      "seats": "limited spots",
+      "price": "175 €"
+    }
+  ]
+}
