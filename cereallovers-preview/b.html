@@ -311,9 +311,14 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   overflow:hidden;min-height:clamp(560px,50vw,700px)}
 .bag + .bag{border-left:2px solid var(--ink)}
 .bag .no{position:absolute;top:18px;left:20px;font:700 12px/1 var(--sans);letter-spacing:.14em;margin:0}
-.bag .pk{width:min(80%,330px);margin:4px auto 0;rotate:var(--rot);filter:drop-shadow(0 24px 30px rgba(0,0,0,.3));
-  transition:transform .55s cubic-bezier(.2,.8,.3,1)}
-.bag:hover .pk{transform:translateY(-10px) scale(1.03)}
+.bag .pkwrap{position:relative;width:min(84%,360px);aspect-ratio:4/5;margin:4px auto 0}
+.bag .pk{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;rotate:var(--rot);filter:drop-shadow(0 24px 30px rgba(0,0,0,.3));
+  transition:opacity .5s}
+.bag3d{position:absolute;left:-14%;top:-8%;width:128%;height:116%;opacity:0;transition:opacity .6s;touch-action:pan-y;cursor:grab}
+.bag3d:active{cursor:grabbing}
+.pkwrap.is3d .bag3d{opacity:1}
+.pkwrap.is3d .pk{opacity:0}
+.bag .spin{position:absolute;right:18px;top:16px;font-family:var(--pen);font-size:22px;line-height:1;opacity:.75}
 .bag .lb{margin-top:auto;padding-top:28px}
 .bag .mg{--h:clamp(32px,3.4vw,46px);color:var(--ink);display:block;margin:0 auto 9px}
 .bag .t{font:700 10px/1.5 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.68);margin:0 0 9px}
@@ -335,8 +340,17 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .stickers li:hover{rotate:0deg;scale:1.08}
 .bars-ph{position:relative}
 .bars-ph .big{rotate:-2.5deg}
-.bars-ph .big img{aspect-ratio:auto}
+.bars-ph .sm img{aspect-ratio:1}
 .bars-ph .sm{position:absolute;width:46%;bottom:-70px;left:-40px;rotate:6deg}
+.bc-head{display:flex;align-items:flex-end;gap:10px;margin-top:84px}
+.bc-head .pen{color:var(--ink);font-size:clamp(30px,3.4vw,44px)}
+.bc-head .sc{position:relative;width:54px;height:64px;rotate:150deg}
+.barcat{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:40px 30px;margin-top:22px}
+.barcat figure{margin:0;text-align:center}
+.barcat img{width:100%;rotate:var(--rot);filter:drop-shadow(0 18px 16px rgba(0,0,0,.28));transition:rotate .3s, translate .3s}
+.barcat figure:hover img{rotate:0deg;translate:0 -8px}
+.barcat figcaption{display:inline-block;margin-top:16px;background:#fff;border:2px solid var(--ink);font:700 12px/1 var(--sans);
+  letter-spacing:.12em;text-transform:uppercase;padding:9px 12px 8px;rotate:calc(var(--rot) * -0.7)}
 #cookies{background:var(--orange);padding:84px 0 90px;border-top:2px solid var(--ink)}
 .ck{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;margin-top:40px}
 .ck figure{margin:0;text-align:center}
@@ -427,6 +441,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   .bag{min-height:0}
   .bars-ph .sm{display:none}
   .ck{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .barcat{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 18px}
   .polas{grid-template-columns:repeat(3,minmax(0,1fr))}
   .polas figure:nth-child(n+4){display:none}
   .idx{grid-template-columns:1fr 1fr}
@@ -711,15 +726,18 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   <div class="bags">
     <article class="bag" style="--c:var(--beet);--rot:-2deg">
       <p class="no">N&#176;16</p>
-      <img class="pk" src="img/pack16.webp" alt="Coffee N°16, Colombian Arabica, Pink Bourbon" loading="lazy">
+      <div class="pkwrap"><img class="pk" src="img/pack16.webp" alt="Coffee N°16, Colombian Arabica, Pink Bourbon" loading="lazy">
+        <canvas class="bag3d" aria-hidden="true" data-num="N°16" data-colour="#e697ab" data-origin="Columbian Arabica" data-lot="Pink Bourbon — Buenos Aires — limited edition" data-note="fully washed,|transporté|en Europe|par voilier." data-yaw="-0.42"></canvas></div>
       <div class="lb"><span class="vh">Colombia</span><span class="mg g-clb" aria-hidden="true"></span>
         <p class="t">Pink Bourbon &#183; Buenos Aires &#183; limited edition</p>
         <p class="hand">came by sailboat. no rush.</p></div>
+      <span class="spin" aria-hidden="true">drag me &#8635;</span>
       <svg class="sc pop" viewBox="0 0 240 240" aria-hidden="true" style="--s:var(--cobalt)"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg>
     </article>
     <article class="bag" style="--c:var(--red);--rot:1.5deg">
       <p class="no">N&#176;17</p>
-      <img class="pk" src="img/pack17.webp" alt="Coffee N°17, Kenyan Arabica, Oreti Estate" loading="lazy">
+      <div class="pkwrap"><img class="pk" src="img/pack17.webp" alt="Coffee N°17, Kenyan Arabica, Oreti Estate" loading="lazy">
+        <canvas class="bag3d" aria-hidden="true" data-num="N°17" data-colour="#ea5348" data-origin="Kenyan Arabica" data-lot="Oreti Estate — limited edition 24/25" data-note="fully washed." data-yaw="0.05"></canvas></div>
       <div class="lb"><span class="vh">Kenya</span><span class="mg g-ken" aria-hidden="true"></span>
         <p class="t">Oreti Estate &#183; fully washed &#183; limited edition 24/25</p>
         <p class="hand">fully washed. unlike your week.</p></div>
@@ -727,7 +745,8 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     </article>
     <article class="bag" style="--c:var(--orange);--rot:-1deg">
       <p class="no">N&#176;18</p>
-      <img class="pk" src="img/pack18.webp" alt="Coffee N°18, Ethiopian Arabica, Yirgacheffe" loading="lazy">
+      <div class="pkwrap"><img class="pk" src="img/pack18.webp" alt="Coffee N°18, Ethiopian Arabica, Yirgacheffe" loading="lazy">
+        <canvas class="bag3d" aria-hidden="true" data-num="N°18" data-colour="#ec682e" data-origin="Ethiopian Arabica" data-lot="Yirgacheffe — single origin" data-note="fully washed." data-yaw="0.4"></canvas></div>
       <div class="lb"><span class="vh">Ethiopia</span><span class="mg g-eth" aria-hidden="true"></span>
         <p class="t">Yirgacheffe &#183; single origin</p>
         <p class="hand">first Ethiopia. then your cup.</p></div>
@@ -752,11 +771,21 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       </div>
       <div class="bars-ph">
         <figure class="snap big" style="margin:0"><span class="tape" aria-hidden="true"></span>
-          <img src="img/b2/bars-labels.webp" alt="Bars in the case: salted caramel, Brahoni tiramisu, coconut chocolate" loading="lazy">
-          <figcaption>Brahoni tiramisu. le plus dur, c'est de choisir.</figcaption></figure>
+          <img src="img/b2/bars-slate.webp" alt="Layered bars on slate in the shop, each with a heart" loading="lazy">
+          <figcaption>cut this morning. le plus dur, c'est de choisir.</figcaption></figure>
         <figure class="snap sm" style="margin:0"><span class="tape r" aria-hidden="true"></span>
-          <img src="img/pw-pinkbars.webp" alt="Pink bars on slate" loading="lazy"><figcaption>pink, obviously</figcaption></figure>
+          <img src="img/b2/bars-pink.webp" alt="Pink bars on slate in the shop" loading="lazy"><figcaption>pink, obviously</figcaption></figure>
       </div>
+    </div>
+    <div class="bc-head"><p class="pen">the signatures</p>
+      <svg class="sc dr" viewBox="0 0 200 240" aria-hidden="true" style="--s:var(--ink);--w:3.4"><path pathLength="1" d="M 35 218 C 163 199 151 136 77 135 C 20 132 31 72 111 30 M 73 34 L 114 27 L 110 70"/></svg></div>
+    <div class="barcat">
+      <figure style="--rot:-4deg"><img src="img/b2/bars/brahoni-tiramisu.webp" alt="Brahoni Tiramisu bar" loading="lazy"><figcaption>Brahoni tiramisu</figcaption></figure>
+      <figure style="--rot:3deg"><img src="img/b2/bars/carrot-cake.webp" alt="Carrot Cake bar" loading="lazy"><figcaption>Carrot cake</figcaption></figure>
+      <figure style="--rot:-2deg"><img src="img/b2/bars/coconut.webp" alt="Coconut chocolate bar" loading="lazy"><figcaption>Coconut chocolate</figcaption></figure>
+      <figure style="--rot:2.5deg"><img src="img/b2/bars/matcha.webp" alt="Matcha bar" loading="lazy"><figcaption>Matcha</figcaption></figure>
+      <figure style="--rot:-3deg"><img src="img/b2/bars/salty-caramel.webp" alt="Salted caramel bar" loading="lazy"><figcaption>Salted caramel</figcaption></figure>
+      <figure style="--rot:4deg"><img src="img/b2/bars/thai-me-up.webp" alt="Thai Me Up salty bar" loading="lazy"><figcaption>Thai me up, salty</figcaption></figure>
     </div>
   </div>
 </section>
@@ -1013,7 +1042,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   /* ---------- bars, the sticker wall ---------- */
   var BARS = ['Brahoni tiramisu','Salted caramel','Coconut chocolate','Banana peanut','AC/DC','Pink velvet','Power peanut',
     'Matcha pink','Carrot cake','Lemon cheesecake','Raspberry','Cookies ’n’ cream','Maple walnut tahini','Strawberry white choc',
-    'Espresso balls','Hazelnut balls'];
+    'Thai me up','Espresso balls','Hazelnut balls'];
   var BC = [['#e8ff3a'],['#fff'],['#f4b63f'],['#001ffc','#fff'],['#5fc5bf'],['#000','#fff'],['#8dc15b'],['#ff6b21'],['#f8aba3']];
   $('#stickers').innerHTML = BARS.map(function(b,i){
     var c = BC[(i*5)%BC.length], r = (((i*37)%11)-5)*0.9;
@@ -1125,6 +1154,27 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     .then(function(){ render(); frame(); });
   frame();
 })();
+</script>
+<script type="importmap">{"imports":{"three":"./js/three.module.min.js"}}</script>
+<script type="module">
+  // the coffee bags in 3D, loaded only when the coffee section comes near
+  const cvs = [...document.querySelectorAll('.bag3d')];
+  const gl = (() => { try { return !!document.createElement('canvas').getContext('webgl2'); } catch (e) { return false; } })();
+  if (cvs.length && gl && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(async es => {
+      if (!es.some(e => e.isIntersecting)) return;
+      io.disconnect();
+      try {
+        const { mountBag } = await import('./js/bag3d.js');
+        cvs.forEach((c, i) => {
+          const d = c.dataset;
+          mountBag(c, { num: d.num, colour: d.colour, origin: d.origin, lot: d.lot, note: d.note.split('|'), yaw: +d.yaw, phase: i * 1.7 })
+            .then(() => c.parentNode.classList.add('is3d')).catch(() => {});
+        });
+      } catch (e) {}
+    }, { rootMargin: '900px 0px' });
+    io.observe(document.querySelector('.bags'));
+  }
 </script>
 </body>
 </html>

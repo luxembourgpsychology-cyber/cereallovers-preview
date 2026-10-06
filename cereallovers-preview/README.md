@@ -25,7 +25,9 @@ and `costs.html` explains what running it would cost.
 | `b.html` | **Option B, Louder**. Courses first, a "send me more info" note at the top, the four granolas as their jar labels, three coffees, bars, cookies |
 | `courses.json` | **the only file to edit to keep the courses fresh** |
 | `costs.html` | hosting, sign-up and upkeep costs, for the decision |
-| `img/b2/` | the new photographs, graded and cropped (no faces, no price tags) |
+| `img/b2/` | the new photographs, graded and cropped (no faces, no price tags). `img/b2/bars/` holds the six studio bars, cut out with Adobe |
+| `js/bag3d.js` | the coffee bags in 3D: the pouch is modelled in code and the label is drawn as live type, so it stays sharp. The old cut-outs stay as the fallback |
+| `js/three.module.min.js`, `js/RoomEnvironment.js` | three.js r170 (MIT licence), served from this site, so nothing loads from outside |
 | `mg/n1–n4.svg` | the N°1–N°4 granola numerals in Migra, cut from the toolbox. N° numbers are used only on the products they belong to; the menu uses words |
 
 ### Keeping the course dates fresh
