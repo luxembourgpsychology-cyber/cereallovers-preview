@@ -22,11 +22,11 @@ and `costs.html` explains what running it would cost.
 
 | file | what it is |
 |---|---|
-| `b.html` | **Option B, Louder**. Courses first, a "send me more info" note at the top, all four granolas, three coffees, bars, cookies |
+| `b.html` | **Option B, Louder**. Courses first, a "send me more info" note at the top, the four granolas as their jar labels, three coffees, bars, cookies |
 | `courses.json` | **the only file to edit to keep the courses fresh** |
 | `costs.html` | hosting, sign-up and upkeep costs, for the decision |
 | `img/b2/` | the new photographs, graded and cropped (no faces, no price tags) |
-| `mg/n1–n6.svg` | the N°1–N°6 numerals in Migra, cut from the toolbox, used as the navigation |
+| `mg/n1–n4.svg` | the N°1–N°4 granola numerals in Migra, cut from the toolbox. N° numbers are used only on the products they belong to; the menu uses words |
 
 ### Keeping the course dates fresh
 

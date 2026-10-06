@@ -15,7 +15,6 @@
   "courses": [
     {
       "id": "hobby",
-      "n": "01",
       "name": "HOBBY",
       "kicker": "for home, for curiosity",
       "colour": "#f8aba3",
@@ -28,7 +27,7 @@
         "no prerequisites"
       ],
       "learn": [
-        "pick your theme: N°1 the art of espresso, or N°2 the art of latte art",
+        "pick your theme: the art of espresso, or the art of latte art",
         "pull a decent shot",
         "steam milk that does not squeak",
         "come alone, as a pair or with friends"
@@ -40,7 +39,6 @@
     },
     {
       "id": "pro",
-      "n": "02",
       "name": "PROFESSIONAL",
       "kicker": "Barista · du grain à la tasse",
       "colour": "#5fc5bf",
@@ -67,7 +65,6 @@
     },
     {
       "id": "master",
-      "n": "03",
       "name": "PRIVATE & MASTER",
       "kicker": "built around your bar",
       "colour": "#f4b63f",
@@ -93,7 +90,6 @@
     },
     {
       "id": "team",
-      "n": "04",
       "name": "TEAM BUILDING",
       "kicker": "companies · HORECA · events",
       "colour": "#8dc15b",
@@ -115,29 +111,6 @@
       "book": {
         "label": "tell us the group size",
         "url": ""
-      }
-    },
-    {
-      "id": "online",
-      "n": "05",
-      "name": "ONLINE",
-      "kicker": "three programmes · EN / FR",
-      "colour": "#b87490",
-      "img": "img/b2/c-cupping.webp",
-      "hand": "not everything has to happen in a room.",
-      "facts": [
-        "start any time",
-        "English or French",
-        "good before a practical day"
-      ],
-      "learn": [
-        "Barista theory refresher",
-        "Barista theory, intermediate",
-        "Advanced barista, performance and calibration"
-      ],
-      "book": {
-        "label": "see coffeelovers.lu",
-        "url": "https://coffeelovers.lu"
       }
     }
   ],

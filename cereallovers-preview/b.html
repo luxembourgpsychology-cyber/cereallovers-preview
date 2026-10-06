@@ -36,7 +36,7 @@ a{color:inherit}
 ::selection{background:var(--marker);color:#fff}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .page{position:relative}
-section{position:relative;overflow:hidden}
+section{position:relative;overflow:hidden;isolation:isolate}
 .wrap{position:relative;max-width:1180px;margin:0 auto;padding:0 28px}
 
 /* type */
@@ -57,8 +57,6 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .g-n2{--r:2.052;-webkit-mask-image:url(mg/n2.svg);mask-image:url(mg/n2.svg)}
 .g-n3{--r:2.128;-webkit-mask-image:url(mg/n3.svg);mask-image:url(mg/n3.svg)}
 .g-n4{--r:2.042;-webkit-mask-image:url(mg/n4.svg);mask-image:url(mg/n4.svg)}
-.g-n5{--r:1.954;-webkit-mask-image:url(mg/n5.svg);mask-image:url(mg/n5.svg)}
-.g-n6{--r:1.999;-webkit-mask-image:url(mg/n6.svg);mask-image:url(mg/n6.svg)}
 .g-epi{--r:8.957;-webkit-mask-image:url(mg/epicurean.svg);mask-image:url(mg/epicurean.svg)}
 .g-gra{--r:3.919;-webkit-mask-image:url(mg/granola.svg);mask-image:url(mg/granola.svg)}
 .g-cof{--r:2.120;-webkit-mask-image:url(mg/coffee.svg);mask-image:url(mg/coffee.svg)}
@@ -96,7 +94,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .snap{position:relative;background:#fff;padding:9px 9px 12px;border:1.5px solid var(--ink)}
 .snap img{width:100%;aspect-ratio:4/5;object-fit:cover}
 .snap figcaption{font-family:var(--pen);font-size:23px;line-height:1;margin-top:8px}
-.dots{position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.55;
+.dots{position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:.55;
   background-image:radial-gradient(rgba(0,0,0,.16) 1.15px,transparent 1.35px);background-size:9px 9px}
 
 /* the ink spine: seven pens drawing down the whole page */
@@ -112,9 +110,9 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .navr{display:flex;align-items:center;gap:10px}
 .here{font-family:var(--pen);font-size:24px;color:var(--red);white-space:nowrap}
 .rail{display:flex;align-items:center;gap:2px}
-.rail a{position:relative;display:grid;place-items:center;padding:9px 7px;color:var(--ink);text-decoration:none}
-.rail .mg{--h:17px;opacity:.42;transition:opacity .15s}
-.rail a:hover .mg,.rail a:focus-visible .mg,.rail a[aria-current] .mg{opacity:1}
+.rail a{position:relative;display:grid;place-items:center;padding:10px 9px;color:var(--ink);text-decoration:none}
+.rail .w{font:700 10.5px/1 var(--sans);letter-spacing:.13em;text-transform:uppercase;opacity:.45;transition:opacity .15s}
+.rail a:hover .w,.rail a:focus-visible .w,.rail a[aria-current] .w{opacity:1}
 .rail a .sc{inset:-2px -3px;width:calc(100% + 6px);height:calc(100% + 4px);opacity:0}
 .rail a[aria-current] .sc{opacity:1}
 
@@ -123,7 +121,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   border-radius:50%;background:var(--red);border:2px solid var(--ink);display:grid;place-items:center;text-decoration:none;
   transition:opacity .25s, scale .25s}
 .cta svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 16s linear infinite}
-.cta text{font-family:var(--mk);font-size:12.6px;letter-spacing:.06em;fill:#fff}
+.cta text{font:700 9.4px var(--sans);fill:#fff}
 .cta i{width:24px;height:40px;background:#fff;-webkit-mask:url(el/heart.svg) no-repeat center/contain;mask:url(el/heart.svg) no-repeat center/contain}
 .cta:hover{background:var(--ink)}
 .cta.hide{opacity:0;scale:.5;pointer-events:none}
@@ -133,7 +131,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   font:700 10.5px/1 var(--sans);letter-spacing:.14em;text-decoration:none}
 .backchip:hover{background:var(--red)}
 
-/* ====== N°1 L'ACADÉMIE ====== */
+/* ====== L'ACADÉMIE ====== */
 #s1{background:var(--gold);padding:104px 0 0}
 .hero{position:relative;z-index:6;display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);gap:34px;padding-bottom:64px}
 .hero .eye{margin-bottom:18px}
@@ -181,11 +179,11 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .chip input:focus-visible + span{outline:2px solid var(--ink);outline-offset:1px}
 .when{font-family:var(--pen);font-size:25px;color:var(--red);margin:0;min-height:0}
 .when:empty{display:none}
-.consent{display:flex;gap:9px;align-items:flex-start;margin:16px 0 14px;font-size:12px;line-height:1.4}
+.consent{position:relative;z-index:1;display:flex;gap:9px;align-items:flex-start;margin:16px 0 14px;font-size:12px;line-height:1.4}
 .consent input{width:18px;height:18px;margin:1px 0 0;accent-color:var(--ink);flex:none}
-.sendrow{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.send{font-family:var(--mk);font-size:27px;line-height:1;background:var(--ink);color:var(--gold);border:0;padding:14px 26px 12px;
-  rotate:-2deg;cursor:pointer;min-height:48px}
+.sendrow{position:relative;isolation:isolate;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.send{font:700 15px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#fff;border:0;
+  padding:17px 26px 16px;rotate:-2deg;cursor:pointer;min-height:50px}
 .send:hover{background:var(--red);color:#fff}
 .status{font-family:var(--pen);font-size:26px;line-height:1;color:var(--red);margin:0}
 .hp{position:absolute;left:-9999px}
@@ -195,8 +193,8 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .thanks p{margin:0}
 
 /* ticker */
-.tick{position:relative;z-index:6;background:var(--ink);color:var(--acid);overflow:hidden;white-space:nowrap;padding:13px 0 11px;
-  font-family:var(--mk);font-size:21px;line-height:1}
+.tick{position:relative;z-index:6;background:var(--ink);color:var(--acid);overflow:hidden;white-space:nowrap;padding:15px 0 14px;
+  font:700 12.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase}
 .tick .tr{display:inline-flex;gap:46px;padding-left:46px;animation:tick 48s linear infinite}
 .tick .tr span::after{content:"\2605";margin-left:46px;color:var(--marker)}
 @keyframes tick{to{transform:translateX(-50%)}}
@@ -206,12 +204,10 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .dhead{display:grid;grid-template-columns:auto 1fr;gap:10px 30px;align-items:end;margin-bottom:46px}
 .dhead .pen{padding-bottom:10px}
 .dhead .arr2{position:relative;display:inline-block;width:70px;height:80px;vertical-align:middle;rotate:100deg;margin-left:8px}
-.doors{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:26px}
-.door{grid-column:span 2;position:relative;background:var(--c);border:2px solid var(--ink);padding:16px 18px 22px;rotate:var(--rot,0deg)}
-.door:nth-child(4),.door:nth-child(5){grid-column:span 3}
-.door:nth-child(n+4) .ph img{aspect-ratio:16/9}
+.doors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:34px 30px}
+.door{position:relative;background:var(--c);border:2px solid var(--ink);padding:16px 18px 22px;rotate:var(--rot,0deg)}
 .door .ph{position:relative;border:2px solid var(--ink);overflow:hidden;margin-bottom:16px;background:#fff}
-.door .ph img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.door .ph img{width:100%;aspect-ratio:16/10;object-fit:cover}
 .door .no{font:700 12px/1 var(--sans);letter-spacing:.16em}
 .door .no .ring .sc path{--s:var(--ink);--w:2.4}
 .door h3{font-size:clamp(32px,3.5vw,48px);margin:12px 0 6px}
@@ -233,7 +229,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .door .st2{right:-22px;top:-24px;width:70px;height:70px;--s:var(--orange)}
 .fallback{font-family:var(--hand);font-size:24px}
 
-/* N°2 fresh dates */
+/* fresh dates */
 #dates{background:var(--cobalt);color:#fff;padding:94px 0 90px}
 #dates .eye{color:#fff}
 .dt-head{position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 34px;margin:14px 0 18px}
@@ -275,7 +271,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .team{margin-top:56px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .team .stk{font-family:var(--mk);font-size:clamp(17px,1.8vw,22px);padding:9px 14px 7px;border:2px solid var(--ink);background:var(--c);rotate:var(--rot)}
 
-/* N°3 granola */
+/* granola */
 #granola{background:var(--paper);padding:94px 0 0}
 .gr-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:center;margin-bottom:70px}
 .gr-in .ghost{--h:clamp(70px,11vw,170px);color:var(--ink);opacity:.08;position:absolute;right:-30px;top:-10px;z-index:0}
@@ -284,38 +280,51 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .gr-four img{aspect-ratio:4/3;object-fit:cover}
 .gr-four .sp2{left:-48px;bottom:-34px;width:100px;height:100px;--s:var(--red)}
 .jars{display:grid;grid-template-columns:1fr 1fr;border-top:2px solid var(--ink)}
-.jar{position:relative;background:var(--c);padding:54px 40px 60px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:28px;
-  align-items:start;border-bottom:2px solid var(--ink)}
+.jar{position:relative;background:var(--c);padding:56px 40px 60px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:8px 26px;
+  align-items:end;border-bottom:2px solid var(--ink)}
 .jar:nth-child(odd){border-right:2px solid var(--ink)}
-.jar .num .mg{--h:clamp(56px,7vw,96px)}
-.jar .cat{font:700 10px/1 var(--sans);letter-spacing:.16em;margin:16px 0 6px}
-.jar h3{font-size:clamp(34px,4vw,54px);margin:0 0 12px;letter-spacing:-.035em}
-.jar .hand{font-size:24px;margin:0 0 18px}
-.pyr{display:grid;margin:0}
-.pyr div{display:grid;grid-template-columns:84px 1fr;gap:10px;padding:8px 0;border-top:1px solid rgba(0,0,0,.18)}
-.pyr dt{font:700 9px/1.3 var(--sans);letter-spacing:.13em;text-transform:uppercase}
-.pyr dd{margin:0;font-size:11px;line-height:1.45;letter-spacing:.05em;text-transform:uppercase}
-.jar .ph{position:relative;rotate:var(--rot)}
+.lbl{grid-column:1/-1;position:relative;container-type:inline-size;background:#fff;border:2px solid var(--ink);rotate:var(--lr,-1.5deg);box-shadow:6px 6px 0 var(--ink);max-width:620px}
+.lbl .lt{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:start;padding:18px 20px 16px}
+.lbl .logo-l{display:block;width:clamp(78px,8vw,104px);aspect-ratio:1.805;background:var(--ink);
+  -webkit-mask:url(el/wordmark.svg) no-repeat left top/contain;mask:url(el/wordmark.svg) no-repeat left top/contain}
+.lbl .notes{margin:0;font-family:Didot,"Bodoni 72","Iowan Old Style",Georgia,serif;font-style:italic;font-size:clamp(15px,4.2cqi,22px);line-height:1.22}
+.lbl .band{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:end;background:var(--c);border-top:2px solid var(--ink);padding:18px 20px 12px}
+.lbl .band .mg{--h:min(10cqi,60px);margin-bottom:4px}
+.lbl .gr{font-size:min(12.4cqi,66px);line-height:.84;letter-spacing:-.045em;margin:0}
+.lbl .gr span{display:block;font-size:.44em;letter-spacing:-.02em;line-height:1;margin-top:4px;text-transform:none}
+.lbl .ssa{grid-column:1/-1;font:700 9.5px/1 var(--sans);letter-spacing:.14em;margin:12px 0 0}
+.jar .hand{font-size:25px;margin:0 0 18px;align-self:end}
+.jar .newtag{position:absolute;right:-14px;top:-18px;z-index:2;background:var(--acid);border:2px solid var(--ink);font-family:var(--mk);
+  font-size:16px;line-height:1;padding:8px 11px 6px;rotate:7deg}
+.jar > div{display:contents}
+.jar .ph{position:relative;rotate:var(--rot);margin-top:-6px!important;max-width:300px;justify-self:end}
 .jar .ph img{aspect-ratio:4/5;object-fit:cover;border:2px solid var(--ink)}
 .jar .sc.j1{right:-14px;bottom:-30px;width:90px;height:90px}
 .jar .sc.j2{left:-30px;top:30%;width:70px;height:84px}
 
-/* N°4 coffee */
-#coffee{background:#0b0b0b;color:#fff;padding:94px 0}
-#coffee .eye{color:#bdbdb9}
-#coffee .ghost{--h:clamp(70px,11vw,160px);color:#fff;opacity:.07;position:absolute;right:-20px;top:60px}
-#coffee .hand{color:var(--acid);margin-top:18px}
-.bags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px;margin-top:52px}
-.bag{position:relative;background:#151515;border-top:12px solid var(--c);padding:24px 22px 26px}
-.bag .vno{position:absolute;right:12px;top:30px;writing-mode:vertical-rl;font:700 10px/1 var(--sans);letter-spacing:.16em;color:#8a8a88}
-.bag .pk{width:74%;margin:6px auto 22px;rotate:var(--rot);filter:drop-shadow(0 16px 22px rgba(0,0,0,.55))}
-.bag .no{font:700 13px/1 var(--sans);letter-spacing:.14em;color:var(--c)}
-.bag .mg{--h:44px;color:#fff;margin:10px 0 10px}
-.bag .t{font:700 11px/1.5 var(--sans);letter-spacing:.12em;text-transform:uppercase;margin:0 0 12px;padding-top:12px;border-top:1px solid #2c2c2c}
-.bag .hand{color:var(--c);font-size:24px;margin:0}
-.bag .sc{right:16px;top:150px;width:60px;height:60px}
+/* coffee: one colour per bag, as in Option B */
+#coffee{background:var(--paper);padding:94px 0 0}
+#coffee .ghost{--h:clamp(70px,11vw,160px);color:var(--ink);opacity:.07;position:absolute;right:-20px;top:40px}
+#coffee .hand{margin-top:18px}
+.bags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:50px;border-top:2px solid var(--ink)}
+.bag{position:relative;background:var(--c);padding:58px 26px 42px;display:flex;flex-direction:column;align-items:center;text-align:center;
+  overflow:hidden;min-height:clamp(560px,50vw,700px)}
+.bag + .bag{border-left:2px solid var(--ink)}
+.bag .no{position:absolute;top:18px;left:20px;font:700 12px/1 var(--sans);letter-spacing:.14em;margin:0}
+.bag .pk{width:min(80%,330px);margin:4px auto 0;rotate:var(--rot);filter:drop-shadow(0 24px 30px rgba(0,0,0,.3));
+  transition:transform .55s cubic-bezier(.2,.8,.3,1)}
+.bag:hover .pk{transform:translateY(-10px) scale(1.03)}
+.bag .lb{margin-top:auto;padding-top:28px}
+.bag .mg{--h:clamp(32px,3.4vw,46px);color:var(--ink);display:block;margin:0 auto 9px}
+.bag .t{font:700 10px/1.5 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:rgba(0,0,0,.68);margin:0 0 9px}
+.bag .hand{font-size:clamp(20px,2vw,25px);margin:0}
+.bag .sc{right:20px;top:54px;width:74px;height:74px}
+.shelf{position:relative;margin:0;overflow:hidden;border-top:2px solid var(--ink)}
+.shelf img{width:100%;height:clamp(220px,30vw,400px);object-fit:cover;object-position:50% 42%}
+.shelf::after{content:"";position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0))}
+.shelf figcaption{position:absolute;left:5%;bottom:10%;z-index:2;color:#fff;font-family:var(--hand);font-size:clamp(24px,3vw,40px);line-height:1.05}
 
-/* N°5 bars + cookies */
+/* bars + cookies */
 #bars{background:var(--marker);padding:94px 0 80px}
 .bars{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
 .bars .pen{color:var(--ink);margin-top:14px}
@@ -335,7 +344,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .ck figure:hover img{rotate:0deg;scale:1.06}
 .ck figcaption{font-family:var(--brush);font-size:clamp(20px,2vw,26px);line-height:1;margin-top:6px}
 
-/* N°6 visit */
+/* visit */
 #visit{background:var(--paper);padding:94px 0 90px}
 .vis{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:46px;align-items:start}
 .vis .mg{--h:clamp(56px,7vw,96px);margin:12px 0 22px}
@@ -353,10 +362,11 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 /* finale */
 #fin{background:var(--red);padding:88px 0 96px}
 #fin .mg{--h:clamp(60px,8vw,110px);margin-bottom:18px}
-#fin .big{display:inline-block;margin-top:34px;font-family:var(--mk);font-size:clamp(26px,3.2vw,40px);line-height:1;background:var(--ink);
-  color:var(--acid);padding:18px 28px 15px;text-decoration:none;rotate:-2deg;border:0;cursor:pointer}
+#fin .bw{position:relative;isolation:isolate;display:inline-block;margin-top:34px}
+#fin .big{display:inline-block;font:700 clamp(15px,1.6vw,19px)/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;
+  background:var(--ink);color:#fff;padding:21px 30px 20px;text-decoration:none;rotate:-2deg;border:0;cursor:pointer}
 #fin .big:hover{background:#fff;color:var(--ink)}
-#fin .hand{margin-top:26px;max-width:30ch}
+#fin .hand{position:relative;z-index:1;margin-top:26px;max-width:30ch}
 #fin .st3{right:8%;top:40px;width:150px;height:150px;--s:var(--acid);--w:4}
 
 /* foot: the index, the control strip, one legal line */
@@ -365,7 +375,8 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .idx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 30px;margin:22px 0 40px}
 .idx a{display:flex;gap:12px;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:9px;text-decoration:none}
 .idx a:hover{border-bottom-color:var(--ink)}
-.idx .mg{--h:14px;flex:none}
+.idx .ic{width:17px;height:17px;flex:none;overflow:visible;align-self:center}
+.idx .ic path{fill:none;stroke:var(--red);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
 .idx span{font-size:13px}
 .strip{display:flex;flex-wrap:wrap;border:1px solid var(--ink)}
 .strip div{flex:1 1 76px;min-width:76px;border-right:1px solid var(--ink);padding-bottom:7px}
@@ -376,13 +387,21 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .legal{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:center;margin-top:26px;font:700 9px/1.4 var(--sans);letter-spacing:.14em;color:var(--smoke)}
 .legal .heart{width:13px;height:22px;background:var(--ink);-webkit-mask:url(el/heart.svg) no-repeat center/contain;mask:url(el/heart.svg) no-repeat center/contain}
 
+/* paint splat: lands next to a button when someone arrives */
+.splat{position:absolute;pointer-events:none;z-index:-1;overflow:visible}
+.splat .blob{transform-box:fill-box;transform-origin:center;scale:0;transition:scale .55s cubic-bezier(.2,1.7,.4,1)}
+.splat circle{opacity:0;translate:var(--fx) var(--fy);transition:opacity .15s .12s, translate .6s .1s cubic-bezier(.1,.9,.3,1)}
+.splat.go .blob{scale:1}
+.splat.go circle{opacity:1;translate:0 0}
+.sendrow .splat{left:66px;top:-76px;width:200px;height:200px}
+#fin .bw .splat{left:62%;top:-90px;width:230px;height:230px}
+.ctasplat{position:fixed;right:-46px;bottom:-46px;width:240px;height:240px;z-index:44}
+.wob{animation:wob .7s .35s 1}
+@keyframes wob{0%,100%{rotate:-2deg}30%{rotate:3deg;scale:1.06}60%{rotate:-4deg}}
+
 /* ===== responsive ===== */
 @media (max-width:1060px){
-  .doors{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .door,.door:nth-child(4),.door:nth-child(5){grid-column:span 1}
-  .door:nth-child(5){grid-column:1/-1}
-  .jar{grid-template-columns:1fr;padding:44px 28px 50px}
-  .jar .ph{max-width:340px}
+  .jar{padding:44px 24px 50px}
   .dt-ph{display:none}
   .here{display:none}
 }
@@ -397,13 +416,15 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   .collage .spiral{display:none}
   .note{width:100%;margin-top:-70px}
   .hero .arrow1{display:none}
-  .stamp{width:118px;height:118px;top:-40px;right:-4px}
+  .stamp{width:104px;height:104px;top:18px;right:-4px}
   .dhead{grid-template-columns:1fr}
   .row{grid-template-columns:1fr;gap:10px}
   .atl,.gr-in,.bars,.vis{grid-template-columns:1fr}
   .jars{grid-template-columns:1fr}
   .jar:nth-child(odd){border-right:0}
-  .bags{grid-template-columns:1fr;max-width:460px}
+  .bags{grid-template-columns:1fr}
+  .bag + .bag{border-left:0;border-top:2px solid var(--ink)}
+  .bag{min-height:0}
   .bars-ph .sm{display:none}
   .ck{grid-template-columns:repeat(3,minmax(0,1fr))}
   .polas{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -412,19 +433,21 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 }
 @media (max-width:560px){
   .wrap{padding:0 16px}
-  .top{padding:0 10px 0 12px;height:56px}
+  html{scroll-padding-top:100px}
+  .top{flex-wrap:wrap;height:auto;padding:8px 10px 0 12px;row-gap:2px}
   .logo{height:30px}
-  .rail a{padding:8px 4px}
-  .rail .mg{--h:13px}
-  #s1{padding-top:86px}
+  .navr{width:100%}
+  .rail{width:100%;justify-content:space-between}
+  .rail a{padding:9px 3px}
+  .rail .w{font-size:9px;letter-spacing:.07em}
+  #s1{padding-top:118px}
   .doors{grid-template-columns:1fr}
-  .door:nth-child(5){grid-column:auto}
   .note{padding:24px 16px 20px}
   .note::before{left:26px}
   .note input[type=text],.note input[type=email]{font-size:27px}
   .chip span{font-size:23px}
   .cta{width:96px;height:96px;right:10px}
-  .cta text{font-size:12px}
+  .ctasplat{right:-62px;bottom:-62px;width:220px;height:220px}
   .backchip{left:10px;height:40px;padding:0 12px}
   .backchip .lg{display:none}
   .ck{grid-template-columns:1fr 1fr}
@@ -433,6 +456,9 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 @media (min-width:561px){.backchip .sm{display:none}}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
+  .splat .blob{scale:1;transition:none}
+  .splat circle{opacity:1;translate:0 0;transition:none}
+  .wob{animation:none}
   .cta svg,.stamp svg,.tick .tr{animation:none}
   .pop{opacity:1;scale:1;rotate:0deg;transition:none}
   .dr path{stroke-dashoffset:0;transition:none}
@@ -446,32 +472,32 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   <div class="navr">
     <span class="here" id="here" aria-hidden="true">you are here: courses</span>
     <nav class="rail" id="rail" aria-label="Sections">
-      <a href="#s1" data-k="1" aria-label="N°1 Courses"><span class="mg g-n1" aria-hidden="true"></span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
-      <a href="#dates" data-k="2" aria-label="N°2 Dates and the atelier"><span class="mg g-n2" aria-hidden="true"></span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
-      <a href="#granola" data-k="3" aria-label="N°3 Granola"><span class="mg g-n3" aria-hidden="true"></span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
-      <a href="#coffee" data-k="4" aria-label="N°4 Coffee"><span class="mg g-n4" aria-hidden="true"></span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
-      <a href="#bars" data-k="5" aria-label="N°5 Bars and cookies"><span class="mg g-n5" aria-hidden="true"></span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
-      <a href="#visit" data-k="6" aria-label="N°6 Visit"><span class="mg g-n6" aria-hidden="true"></span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
+      <a href="#s1" data-k="1"><span class="w">Courses</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
+      <a href="#dates" data-k="2"><span class="w">Dates</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
+      <a href="#granola" data-k="3"><span class="w">Granola</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
+      <a href="#coffee" data-k="4"><span class="w">Coffee</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
+      <a href="#bars" data-k="5"><span class="w">Bars</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
+      <a href="#visit" data-k="6"><span class="w">Visit</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
     </nav>
   </div>
 </header>
 
 <a class="cta" id="cta" href="#note" aria-label="Send me more info">
   <svg viewBox="0 0 122 122" aria-hidden="true"><defs><path id="circ" d="M61,61 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/></defs>
-    <text><textPath href="#circ">SEND ME MORE INFO &#183; SEND ME MORE INFO &#183;</textPath></text></svg>
+    <text><textPath href="#circ" textLength="279" lengthAdjust="spacing">SEND ME MORE INFO &#183; SEND ME MORE INFO &#183;</textPath></text></svg>
   <i aria-hidden="true"></i>
 </a>
 
 <div class="page" id="page">
 <div id="spine" aria-hidden="true"><svg id="spineSvg" viewBox="0 0 1000 12000" preserveAspectRatio="none"></svg></div>
 
-<!-- ================= N°1 L'ACADÉMIE ================= -->
+<!-- ================= L'ACADÉMIE ================= -->
 <section id="s1" data-k="1" data-name="courses">
   <span class="dots" aria-hidden="true"></span>
   <div class="wrap">
     <div class="hero">
       <div class="lc">
-        <p class="eye">N&#176;1 &#183; COFFEE LOVERS BARISTA ACADEMY &#183; AT CEREAL LOVERS &#183; LUXEMBOURG</p>
+        <p class="eye">COFFEE LOVERS BARISTA ACADEMY &#183; AT CEREAL LOVERS &#183; LUXEMBOURG</p>
         <h1>Learn<br>coffee.<br><span class="mark">Properly.<svg class="sc dr" viewBox="0 0 500 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 30 68 L 466 28 M 27 88 L 467 49" style="--s:var(--marker);--w:24"/></svg></span></h1>
         <p class="cross"><span class="x">a fun afternoon with some milk.<svg class="sc dr" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 26 C 60 14, 120 30, 180 16 S 260 22, 296 12 M 10 14 C 90 24, 190 8, 290 26"/></svg></span><br>
           a real course. with a syllabus. and Ascaso machines.</p>
@@ -531,7 +557,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 <section id="doors" data-k="1" data-name="courses">
   <div class="wrap">
     <div class="dhead">
-      <h2>Five<br>doors in.</h2>
+      <h2>Four<br>doors in.</h2>
       <p class="pen">pick the one that sounds like you<svg class="sc dr arr2" viewBox="0 0 200 240" aria-hidden="true"><path pathLength="1" d="M 35 218 C 163 199 151 136 77 135 C 20 132 31 72 111 30 M 73 34 L 114 27 L 110 70" style="--w:3.6"/></svg><br>
         <span style="color:var(--ink)">every level runs all year. the dates are just the open groups.</span></p>
     </div>
@@ -539,12 +565,12 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   </div>
 </section>
 
-<!-- ================= N°2 FRESH DATES ================= -->
+<!-- ================= FRESH DATES ================= -->
 <section id="dates" data-k="2" data-name="dates">
   <div class="wrap">
     <figure class="dt-ph" style="margin:0"><div class="snap"><span class="tape r" aria-hidden="true"></span>
       <img src="img/b2/c-bear.webp" alt="Latte art bear and rosettas on the bar" loading="lazy"><figcaption>made on the course. a bear.</figcaption></div></figure>
-    <p class="eye">N&#176;2 &#183; LE TABLEAU &#183; NEXT OPEN SESSIONS</p>
+    <p class="eye">LE TABLEAU &#183; NEXT OPEN SESSIONS</p>
     <div class="dt-head">
       <h2>Fresh<br>dates.</h2>
       <span class="upd" id="upd">updated today</span>
@@ -591,13 +617,13 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   </div>
 </section>
 
-<!-- ================= N°3 GRANOLA ================= -->
+<!-- ================= GRANOLA ================= -->
 <section id="granola" data-k="3" data-name="granola">
   <div class="wrap">
     <span class="mg g-gra ghost" aria-hidden="true"></span>
     <div class="gr-in">
       <div style="position:relative;z-index:1">
-        <p class="eye">N&#176;3 &#183; GRANOLA &#183; THE EPICUREAN COLLECTION</p>
+        <p class="eye">GRANOLA &#183; THE EPICUREAN COLLECTION</p>
         <h2 style="margin-top:16px">Four jars.<br><span class="mark">Zero<svg class="sc dr" viewBox="0 0 500 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 30 68 L 466 28 M 27 88 L 467 49" style="--s:var(--silk);--w:24"/></svg></span> added sugar.</h2>
         <p class="hand">1, 3, 4&#8230; and finally, the N&#176;2.<br>pink, green, brown, yellow. promis, juré, croqué.</p>
         <svg class="sc dr squig" style="position:relative" viewBox="0 0 300 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M5 20 C 25 5, 45 35, 65 20 S 105 5, 125 20 S 165 35, 185 20 S 225 5, 245 20 S 285 35, 295 20" style="--s:var(--cobalt)"/></svg>
@@ -611,68 +637,61 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   </div>
 
   <div class="jars">
-    <article class="jar" style="--c:var(--beet)">
+    <article class="jar" style="--c:#f8aba3;--lr:-1.5deg">
       <div>
-        <span class="num"><span class="vh">N°1</span><span class="mg g-n1" aria-hidden="true"></span></span>
-        <p class="cat">GRANOLA &#183; NO ADDED SUGAR</p>
-        <h3>Pink Beat</h3>
+        <div class="lbl">
+          <div class="lt"><span class="logo-l" role="img" aria-label="Cereal Lovers, The Epicurean Collection"></span>
+            <p class="notes">notes : betterave,<br>noix de coco,<br>chia, noix.</p></div>
+          <div class="band"><span class="vh">N°1</span><span class="mg g-n1" aria-hidden="true"></span>
+            <h3 class="gr">Granola<span>Pink Beat</span></h3>
+            <p class="ssa">SANS SUCRES AJOUT&#201;S</p></div>
+        </div>
         <p class="hand">follow the pink.</p>
-        <dl class="pyr">
-          <div><dt>Ouverture</dt><dd>gingembre frais, coco grillé</dd></div>
-          <div><dt>Cœur</dt><dd>betterave rouge, datte, cannelle</dd></div>
-          <div><dt>Finale</dt><dd>avoine toastée, graines grillées</dd></div>
-          <div><dt>Texture</dt><dd>pépites rosées et croquantes</dd></div>
-        </dl>
       </div>
       <figure class="ph" style="margin:0;--rot:3deg"><span class="tape" aria-hidden="true"></span>
         <img src="img/b2/g1-pinkbeat.webp" alt="N°1 Pink Beat granola jar" loading="lazy">
         <svg class="sc pop j1" viewBox="0 0 240 240" aria-hidden="true" style="--s:var(--red)"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg></figure>
     </article>
-    <article class="jar" style="--c:var(--silk)">
+    <article class="jar" style="--c:#8dc15b;--lr:1.2deg">
       <div>
-        <span class="num"><span class="vh">N°2</span><span class="mg g-n2" aria-hidden="true"></span></span>
-        <p class="cat">GRANOLA &#183; NEW THIS OCTOBER</p>
-        <h3>Green <span class="ring">Silk<svg class="sc dr" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--s:var(--cobalt)"/></svg></span></h3>
+        <div class="lbl"><span class="newtag">new this october</span>
+          <div class="lt"><span class="logo-l" role="img" aria-label="Cereal Lovers, The Epicurean Collection"></span>
+            <p class="notes">notes : matcha,<br>noix de coco,<br>citron, sésame.</p></div>
+          <div class="band"><span class="vh">N°2</span><span class="mg g-n2" aria-hidden="true"></span>
+            <h3 class="gr">Granola<span>Green Silk</span></h3>
+            <p class="ssa">SANS SUCRES AJOUT&#201;S</p></div>
+        </div>
         <p class="hand">le vert, c'est le matcha.</p>
-        <dl class="pyr">
-          <div><dt>Ouverture</dt><dd>matcha, citron vert</dd></div>
-          <div><dt>Cœur</dt><dd>sésame, noix de coco</dd></div>
-          <div><dt>Finale</dt><dd>avoine toastée, vanille, fleur de sel</dd></div>
-          <div><dt>Texture</dt><dd>éclats aériens</dd></div>
-        </dl>
       </div>
       <figure class="ph" style="margin:0;--rot:-2.5deg"><span class="tape r" aria-hidden="true"></span>
         <img src="img/b2/g2-greensilk.webp" alt="N°2 Green Silk granola jar in front of the others" loading="lazy">
         <svg class="sc dr j2" viewBox="0 0 200 240" aria-hidden="true" style="--s:var(--ink)"><path pathLength="1" d="M 35 218 C 163 199 151 136 77 135 C 20 132 31 72 111 30 M 73 34 L 114 27 L 110 70"/></svg></figure>
     </article>
-    <article class="jar" style="--c:var(--jade)">
+    <article class="jar" style="--c:#5fc5bf;--lr:-1deg">
       <div>
-        <span class="num"><span class="vh">N°3</span><span class="mg g-n3" aria-hidden="true"></span></span>
-        <p class="cat">GRANOLA VEGAN &#183; NO ADDED SUGAR</p>
-        <h3>Deep Choc</h3>
+        <div class="lbl">
+          <div class="lt"><span class="logo-l" role="img" aria-label="Cereal Lovers, The Epicurean Collection"></span>
+            <p class="notes">notes :<br>cacao intense,<br>noix, avoine.</p></div>
+          <div class="band"><span class="vh">N°3</span><span class="mg g-n3" aria-hidden="true"></span>
+            <h3 class="gr">Granola<span>Deep Choc</span></h3>
+            <p class="ssa">SANS SUCRES AJOUT&#201;S</p></div>
+        </div>
         <p class="hand">chocolate, taken seriously.</p>
-        <dl class="pyr">
-          <div><dt>On the label</dt><dd>cacao, noisette, amande, cajou, datte</dd></div>
-          <div><dt>Texture</dt><dd>éclats de cacao, chips de coco</dd></div>
-          <div><dt>Rituel</dt><dd>yaourt bien frais, banane, éclats de cacao</dd></div>
-        </dl>
       </div>
       <figure class="ph" style="margin:0;--rot:2deg"><span class="tape" aria-hidden="true"></span>
         <img src="img/b2/g3-deepchoc.webp" alt="N°3 Deep Choc granola jar" loading="lazy">
         <svg class="sc pop j1" viewBox="0 0 240 240" aria-hidden="true" style="--s:var(--orange)"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg></figure>
     </article>
-    <article class="jar" style="--c:var(--gold)">
+    <article class="jar" style="--c:#f4b63f;--lr:1.8deg">
       <div>
-        <span class="num"><span class="vh">N°4</span><span class="mg g-n4" aria-hidden="true"></span></span>
-        <p class="cat">GRANOLA &#183; NO ADDED SUGAR</p>
-        <h3>Kurkuma <span class="mark">Gold<svg class="sc dr" viewBox="0 0 500 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 30 68 L 466 28 M 27 88 L 467 49" style="--s:#fff;--w:24"/></svg></span></h3>
+        <div class="lbl">
+          <div class="lt"><span class="logo-l" role="img" aria-label="Cereal Lovers, The Epicurean Collection"></span>
+            <p class="notes">notes : kurkuma,<br>noix, cannelle,<br>abricots.</p></div>
+          <div class="band"><span class="vh">N°4</span><span class="mg g-n4" aria-hidden="true"></span>
+            <h3 class="gr">Granola<span>Kurkuma Gold</span></h3>
+            <p class="ssa">SANS SUCRES AJOUT&#201;S</p></div>
+        </div>
         <p class="hand">on a dit deux granolas. on a menti.</p>
-        <dl class="pyr">
-          <div><dt>Ouverture</dt><dd>kurkuma, vanille</dd></div>
-          <div><dt>Cœur</dt><dd>cannelle, noix</dd></div>
-          <div><dt>Finale</dt><dd>avoine toastée, graines grillées</dd></div>
-          <div><dt>Notes</dt><dd>kurkuma, noix, cannelle, abricots</dd></div>
-        </dl>
       </div>
       <figure class="ph" style="margin:0;--rot:-3deg"><span class="tape r" aria-hidden="true"></span>
         <img src="img/b2/g4-kurkuma.webp" alt="N°4 Kurkuma Gold granola jars" loading="lazy">
@@ -681,51 +700,51 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   </div>
 </section>
 
-<!-- ================= N°4 COFFEE ================= -->
+<!-- ================= COFFEE ================= -->
 <section id="coffee" data-k="4" data-name="coffee">
   <div class="wrap">
     <span class="mg g-cof ghost" aria-hidden="true"></span>
-    <p class="eye">N&#176;4 &#183; THE ROAST &#183; SINGLE ORIGINS</p>
-    <h2 style="margin-top:16px">Three black bags.<br>Three characters.</h2>
+    <p class="eye">THE ROAST &#183; SINGLE ORIGINS</p>
+    <h2 style="margin-top:16px">Three coffees.<br>Three characters.</h2>
     <p class="hand">first the origin. then your cup.</p>
-    <div class="bags">
-      <article class="bag" style="--c:var(--mauve);--rot:-3deg">
-        <span class="vno">N&#176;16 &#183; SOUTH AMERICA</span>
-        <img class="pk" src="img/pack16.webp" alt="Coffee N°16, Colombian Arabica, Pink Bourbon" loading="lazy">
-        <p class="no">N&#176;16</p>
-        <span class="vh">Colombia</span><span class="mg g-clb" aria-hidden="true"></span>
-        <p class="t">Pink Bourbon &#183; Buenos Aires</p>
-        <p class="hand">came by sailboat. no rush.</p>
-        <svg class="sc pop" viewBox="0 0 240 240" aria-hidden="true" style="--s:var(--mauve)"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg>
-      </article>
-      <article class="bag" style="--c:var(--coral);--rot:2deg">
-        <span class="vno">N&#176;17 &#183; AFRICA</span>
-        <img class="pk" src="img/pack17.webp" alt="Coffee N°17, Kenyan Arabica, Oreti Estate" loading="lazy">
-        <p class="no">N&#176;17</p>
-        <span class="vh">Kenya</span><span class="mg g-ken" aria-hidden="true"></span>
-        <p class="t">Oreti Estate &#183; fully washed &#183; limited edition 24/25</p>
-        <p class="hand">fully washed. unlike your week.</p>
-      </article>
-      <article class="bag" style="--c:var(--ember);--rot:-1.5deg">
-        <span class="vno">N&#176;18 &#183; AFRICA</span>
-        <img class="pk" src="img/pack18.webp" alt="Coffee N°18, Ethiopian Arabica, Yirgacheffe" loading="lazy">
-        <p class="no">N&#176;18</p>
-        <span class="vh">Ethiopia</span><span class="mg g-eth" aria-hidden="true"></span>
-        <p class="t">Yirgacheffe &#183; single origin</p>
-        <p class="hand">first Ethiopia. then your cup.</p>
-        <svg class="sc dr" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true" style="--s:var(--ember)"><path pathLength="1" d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371"/></svg>
-      </article>
-    </div>
   </div>
+  <div class="bags">
+    <article class="bag" style="--c:var(--beet);--rot:-2deg">
+      <p class="no">N&#176;16</p>
+      <img class="pk" src="img/pack16.webp" alt="Coffee N°16, Colombian Arabica, Pink Bourbon" loading="lazy">
+      <div class="lb"><span class="vh">Colombia</span><span class="mg g-clb" aria-hidden="true"></span>
+        <p class="t">Pink Bourbon &#183; Buenos Aires &#183; limited edition</p>
+        <p class="hand">came by sailboat. no rush.</p></div>
+      <svg class="sc pop" viewBox="0 0 240 240" aria-hidden="true" style="--s:var(--cobalt)"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg>
+    </article>
+    <article class="bag" style="--c:var(--red);--rot:1.5deg">
+      <p class="no">N&#176;17</p>
+      <img class="pk" src="img/pack17.webp" alt="Coffee N°17, Kenyan Arabica, Oreti Estate" loading="lazy">
+      <div class="lb"><span class="vh">Kenya</span><span class="mg g-ken" aria-hidden="true"></span>
+        <p class="t">Oreti Estate &#183; fully washed &#183; limited edition 24/25</p>
+        <p class="hand">fully washed. unlike your week.</p></div>
+      <svg class="sc dr" viewBox="0 0 200 200" aria-hidden="true" style="--s:var(--acid);--w:4"><path pathLength="1" d="M100 100 c 10 -5 20 5 15 15 c -6 14 -28 10 -30 -6 c -3 -22 26 -34 44 -20 c 22 17 12 52 -14 58 c -32 8 -58 -22 -48 -52 c 12 -36 58 -46 86 -20"/></svg>
+    </article>
+    <article class="bag" style="--c:var(--orange);--rot:-1deg">
+      <p class="no">N&#176;18</p>
+      <img class="pk" src="img/pack18.webp" alt="Coffee N°18, Ethiopian Arabica, Yirgacheffe" loading="lazy">
+      <div class="lb"><span class="vh">Ethiopia</span><span class="mg g-eth" aria-hidden="true"></span>
+        <p class="t">Yirgacheffe &#183; single origin</p>
+        <p class="hand">first Ethiopia. then your cup.</p></div>
+      <svg class="sc pop" viewBox="0 0 240 240" aria-hidden="true" style="--s:var(--ink)"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg>
+    </article>
+  </div>
+  <figure class="shelf"><img src="img/wd-packs.webp" alt="The three coffees on the shelf in the shop" loading="lazy">
+    <figcaption>and this is where<br>they actually live.</figcaption></figure>
 </section>
 
-<!-- ================= N°5 BARS + COOKIES ================= -->
+<!-- ================= BARS + COOKIES ================= -->
 <section id="bars" data-k="5" data-name="bars">
   <span class="dots" aria-hidden="true"></span>
   <div class="wrap">
     <div class="bars">
       <div style="position:relative;z-index:1">
-        <p class="eye">N&#176;5 &#183; LES BARRES &#183; MADE IN THE SHOP</p>
+        <p class="eye">LES BARRES &#183; MADE IN THE SHOP</p>
         <h2 style="margin-top:16px">Cut.<br>Stacked.<br><span class="ring">Gone.<svg class="sc dr" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--s:var(--acid);--w:4"/></svg></span></h2>
         <p class="pen">small format. big flavour. cut this morning.</p>
         <ul class="stickers" id="stickers" aria-label="Bars"></ul>
@@ -756,12 +775,12 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   </div>
 </section>
 
-<!-- ================= N°6 VISIT ================= -->
+<!-- ================= VISIT ================= -->
 <section id="visit" data-k="6" data-name="visit">
   <div class="wrap">
     <div class="vis">
       <div>
-        <p class="eye">N&#176;6 &#183; LA MAISON</p>
+        <p class="eye">LA MAISON</p>
         <span class="vh">Visit</span><span class="mg g-vis" aria-hidden="true"></span>
         <h2>Come<br>and sit.</h2>
         <div class="addr">
@@ -790,7 +809,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   <div class="wrap">
     <span class="vh">Finale</span><span class="mg g-fin" aria-hidden="true"></span>
     <h2>Still reading?<br>Just ask.</h2>
-    <a class="big" href="#note" id="finBtn">send me more info &#8593;</a>
+    <span class="bw" id="finWrap"><a class="big" href="#note" id="finBtn">send me more info &#8593;</a></span>
     <p class="hand">we answer properly. nobody has ever been talked into the wrong level.</p>
     <svg class="sc pop st3" viewBox="0 0 240 240" aria-hidden="true"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg>
   </div>
@@ -801,12 +820,12 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   <div class="wrap">
     <span class="vh">Index</span><span class="mg g-idx gi" aria-hidden="true"></span>
     <nav class="idx" aria-label="Index">
-      <a href="#s1"><span class="mg g-n1" aria-hidden="true"></span><span>Courses &#183; the academy</span></a>
-      <a href="#dates"><span class="mg g-n2" aria-hidden="true"></span><span>Dates &#183; the atelier</span></a>
-      <a href="#granola"><span class="mg g-n3" aria-hidden="true"></span><span>Granola &#183; four jars</span></a>
-      <a href="#coffee"><span class="mg g-n4" aria-hidden="true"></span><span>Coffee &#183; three origins</span></a>
-      <a href="#bars"><span class="mg g-n5" aria-hidden="true"></span><span>Bars &#183; cookies</span></a>
-      <a href="#visit"><span class="mg g-n6" aria-hidden="true"></span><span>Visit &#183; two addresses</span></a>
+      <a href="#s1"><svg class="ic" viewBox="0 0 240 240" aria-hidden="true"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg><span>Courses &#183; the academy</span></a>
+      <a href="#dates"><svg class="ic" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 100 c 10 -5 20 5 15 15 c -6 14 -28 10 -30 -6 c -3 -22 26 -34 44 -20 c 22 17 12 52 -14 58 c -32 8 -58 -22 -48 -52 c 12 -36 58 -46 86 -20"/></svg><span>Dates &#183; the atelier</span></a>
+      <a href="#granola"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 85 C 20 60, 5 40, 20 22 C 32 8, 48 18, 50 30 C 52 18, 68 8, 80 22 C 95 40, 80 60, 50 85 Z"/></svg><span>Granola &#183; four jars</span></a>
+      <a href="#coffee"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M5 60 L20 35 L35 60 L50 35 L65 60 L80 35 L95 60"/></svg><span>Coffee &#183; three origins</span></a>
+      <a href="#bars"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M20 20 L80 80 M80 18 L22 82"/></svg><span>Bars &#183; cookies</span></a>
+      <a href="#visit"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 10 L50 28 M50 72 L50 90 M10 50 L28 50 M72 50 L90 50 M22 22 L34 34 M66 66 L78 78 M78 22 L66 34 M34 66 L22 78"/></svg><span>Visit &#183; two addresses</span></a>
     </nav>
     <div class="strip" aria-label="Colour control strip">
       <div><i style="background:#f8aba3"></i><span>beet</span><em>#F8ABA3</em></div>
@@ -865,7 +884,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       el.setAttribute('viewBox', dd[0]); el.setAttribute('aria-hidden','true');
       el.setAttribute('class', 'sc dood ' + (dd[0]==='0 0 240 240' ? 'pop' : 'dr'));
       var sz = 44 + r()*56;
-      el.style.cssText = 'width:'+sz+'px;height:'+sz+'px;z-index:2;top:'+(6 + r()*86).toFixed(1)+'%;'
+      el.style.cssText = 'width:'+sz+'px;height:'+sz+'px;z-index:-1;top:'+(6 + r()*86).toFixed(1)+'%;'
         + (left ? 'left:' : 'right:') + (r()*4.5).toFixed(1)+'%;rotate:'+((r()-.5)*70).toFixed(0)+'deg;--s:'+INKS[Math.floor(r()*INKS.length)]+';--w:'+(2.6+r()*2.4).toFixed(1);
       el.innerHTML = '<path pathLength="1" d="'+dd[1]+'"/>';
       sec.insertBefore(el, sec.firstChild);
@@ -916,7 +935,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   }
   function course(id){ return (DATA && DATA.courses || []).filter(function(c){ return c.id===id; })[0] || {name:id,colour:'#fff'}; }
 
-  var COURSES_FALLBACK = [{id:'hobby',name:'HOBBY'},{id:'pro',name:'PROFESSIONAL'},{id:'master',name:'PRIVATE & MASTER'},{id:'team',name:'TEAM BUILDING'},{id:'online',name:'ONLINE'}];
+  var COURSES_FALLBACK = [{id:'hobby',name:'HOBBY'},{id:'pro',name:'PROFESSIONAL'},{id:'master',name:'PRIVATE & MASTER'},{id:'team',name:'TEAM BUILDING'}];
   var ROT = ['-2deg','1.5deg','-1deg','2.5deg','-2.5deg','1deg'];
   var RING = '<svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371"/></svg>';
   var RINGD = '<svg class="sc dr" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371"/></svg>';
@@ -945,12 +964,12 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     /* the doors */
     $('#doorList').innerHTML = cs.map(function(c,i){
       var nx = up.filter(function(s){ return s.course===c.id; })[0];
-      var nextTxt = nx ? 'next open group: '+span(nx).label : (c.id==='online' ? 'start any time' : 'any date you choose');
+      var nextTxt = nx ? 'next open group: '+span(nx).label : 'any date you choose';
       var ext = c.book && c.book.url ? '<a class="btn line" href="'+esc(c.book.url)+'" target="_blank" rel="noopener">'+esc(c.book.label)+' &#8599;</a>' : '';
-      return '<article class="door" id="door-'+esc(c.id)+'" style="--c:'+esc(c.colour)+';--rot:'+(['-.8deg','.6deg','-.4deg','.5deg','-.6deg'][i%5])+'">'
+      return '<article class="door" id="door-'+esc(c.id)+'" style="--c:'+esc(c.colour)+';--rot:'+(['-.8deg','.6deg','.5deg','-.6deg'][i%4])+'">'
         + (i===0 ? STAR : '')
         + '<div class="ph"><img src="'+esc(c.img)+'" alt="" loading="lazy"></div>'
-        + '<span class="no"><span class="ring">N&#176;'+esc(c.n)+RINGD+'</span> &#183; '+esc(c.kicker)+'</span>'
+        + '<span class="no">'+esc(c.kicker)+'</span>'
         + '<h3>'+esc(c.name)+'</h3>'
         + '<p class="hand">'+esc(c.hand)+'</p>'
         + '<div class="facts">'+(c.facts||[]).map(function(f){return '<span>'+esc(f)+'</span>';}).join('')+'</div>'
@@ -1043,8 +1062,45 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 
   /* ---------- the rail: which number are we on ---------- */
   var secs = $$('section[data-k]'), rail = $$('#rail a'), here = $('#here'), cur = '';
-  var cta = $('#cta'), noteVisible = true;
-  if(io) new IntersectionObserver(function(es){ es.forEach(function(e){ noteVisible = e.isIntersecting; cta.classList.toggle('hide', noteVisible); }); },{threshold:.2}).observe(note);
+  var cta = $('#cta'), noteVisible = true, ctaSplatHost = null;
+  if(io) new IntersectionObserver(function(es){ es.forEach(function(e){ noteVisible = e.isIntersecting; cta.classList.toggle('hide', noteVisible); if(ctaSplatHost) ctaSplatHost.style.opacity = noteVisible ? 0 : 1; }); },{threshold:.6}).observe($('.sendrow'));
+
+  /* ---------- paint splat next to a button, as someone arrives ---------- */
+  function splatSVG(seed, colour){
+    var r = rng(seed), n = 22, pts = [];
+    for(var i=0;i<n;i++){
+      var a = i/n*Math.PI*2, rad = 46*(0.78 + r()*0.24);
+      if(r() < .28) rad *= 1.22 + r()*0.32;
+      pts.push([Math.cos(a)*rad, Math.sin(a)*rad]);
+    }
+    var d = 'M'+pts[0][0].toFixed(1)+' '+pts[0][1].toFixed(1);
+    for(var i=0;i<n;i++){
+      var p0=pts[(i-1+n)%n], p1=pts[i], p2=pts[(i+1)%n], p3=pts[(i+2)%n];
+      d += ' C'+(p1[0]+(p2[0]-p0[0])/6).toFixed(1)+' '+(p1[1]+(p2[1]-p0[1])/6).toFixed(1)+','
+        +(p2[0]-(p3[0]-p1[0])/6).toFixed(1)+' '+(p2[1]-(p3[1]-p1[1])/6).toFixed(1)+','+p2[0].toFixed(1)+' '+p2[1].toFixed(1);
+    }
+    var drops = '';
+    for(var k=0;k<8;k++){
+      var a2 = r()*Math.PI*2, dist = 64 + r()*30, cx = Math.cos(a2)*dist, cy = Math.sin(a2)*dist;
+      drops += '<circle cx="'+cx.toFixed(1)+'" cy="'+cy.toFixed(1)+'" r="'+(2.5+r()*6).toFixed(1)+'" fill="'+colour+'" style="--fx:'+(-cx*.7).toFixed(0)+'px;--fy:'+(-cy*.7).toFixed(0)+'px"/>';
+    }
+    return '<svg class="splat" viewBox="-100 -100 200 200" aria-hidden="true"><path class="blob" d="'+d+' Z" fill="'+colour+'"/>'+drops+'</svg>';
+  }
+  function splatAt(host, seed, colour, btn){
+    if(!host || host.dataset.splat) return;
+    host.dataset.splat = '1';
+    host.insertAdjacentHTML('afterbegin', splatSVG(seed, colour));
+    var sv = host.querySelector('.splat');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ sv.classList.add('go'); if(btn) btn.classList.add('wob'); }); });
+  }
+  ctaSplatHost = document.createElement('div'); ctaSplatHost.style.transition = 'opacity .25s'; document.body.appendChild(ctaSplatHost);
+  setTimeout(function(){
+    if(noteVisible) splatAt($('.sendrow'), 7, '#ef4ea2', $('.send'));
+    else { ctaSplatHost.innerHTML = splatSVG(19, '#e8ff3a'); var sv = ctaSplatHost.firstChild; sv.classList.add('ctasplat');
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ sv.classList.add('go'); }); }); }
+  }, 900);
+  if(io) new IntersectionObserver(function(es, ob){ es.forEach(function(e){ if(e.isIntersecting){ splatAt($('#finWrap'), 31, '#e8ff3a', $('#finBtn')); ob.disconnect(); } }); },{threshold:.8}).observe($('#finWrap'));
+
   var ticking = false;
   function frame(){
     ticking = false;
