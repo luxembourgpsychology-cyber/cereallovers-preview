@@ -1015,11 +1015,10 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   /* ---------- the spine: fourteen pens, glowing, drawn by scrolling, all the way to the end ---------- */
   // c colour, w line width, o opacity, k how far ahead of the reader the pen runs, g glow
   var pens = [
-    {c:'#000000',w:2.4,o:.45,k:1.5,g:0, seed:11}, {c:'#ef3936',w:3.0,o:.80,k:1.8,g:1, seed:23},
-    {c:'#001ffc',w:2.2,o:.70,k:1.3,g:1, seed:37}, {c:'#ef4ea2',w:5.0,o:.45,k:1.7,g:1, seed:41},
-    {c:'#ff6b21',w:2.2,o:.75,k:1.4,g:0, seed:53}, {c:'#8dc15b',w:3.4,o:.55,k:1.6,g:0, seed:67},
-    {c:'#e8ff3a',w:8.0,o:.30,k:1.9,g:1, seed:97}, {c:'#5fc5bf',w:2.4,o:.65,k:1.45,g:0, seed:79},
-    {c:'#ffffff',w:1.8,o:.70,k:1.55,g:1, seed:151}
+    {c:'#000000',w:2.2,o:.40,k:.92,g:0, seed:11}, {c:'#ef3936',w:2.8,o:.72,k:1.00,g:1, seed:23},
+    {c:'#001ffc',w:2.0,o:.62,k:.88,g:1, seed:37}, {c:'#ef4ea2',w:4.6,o:.42,k:1.06,g:1, seed:41},
+    {c:'#e8ff3a',w:7.0,o:.28,k:1.12,g:1, seed:97}, {c:'#5fc5bf',w:2.2,o:.58,k:.95,g:0, seed:79},
+    {c:'#ff6b21',w:2.0,o:.65,k:1.02,g:0, seed:53}
   ];
   // The lines are drawn at the page's real pixel size (no stretching, so every line can draw all the
   // way down), in stacked bands of at most ~2400px, because browsers stop painting one very tall image.
@@ -1027,30 +1026,25 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   pens.forEach(function(p, i){ spine.push({n:i, k:p.k, t:0}); });
   function rng(seed){ return function(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }; }
   function penPath(p, W, H){
-    var r = rng(p.seed), sm = W < 600 ? .62 : 1, x = 12 + r()*(W-24), y = -40, d = 'M'+x.toFixed(0)+' '+y;
-    var cl = function(v){ return Math.max(10, Math.min(W-10, v)); }, n = function(v){ return v.toFixed(0); };
-    while(y < H + 60){
-      var roll = r();
-      if(roll < .17){                                   // a twirl: one or two loops, tightening
-        var R = (26 + r()*60)*sm, dir = r() < .5 ? 1 : -1, turns = 1 + r()*.9, a = r()*Math.PI*2;
-        var cx = x - Math.cos(a)*R, cy = y - Math.sin(a)*R, steps = Math.ceil(turns*4), da = dir*turns*Math.PI*2/steps;
-        for(var i=0;i<steps;i++){
-          var r0 = R*(1 - .45*i/steps), r1 = R*(1 - .45*(i+1)/steps), a0 = a + da*i, a1 = a0 + da, h = 4/3*Math.tan(da/4);
-          var x0 = cx + Math.cos(a0)*r0, y0 = cy + Math.sin(a0)*r0, x1 = cx + Math.cos(a1)*r1, y1 = cy + Math.sin(a1)*r1;
-          d += ' C'+n(x0 - Math.sin(a0)*r0*h)+' '+n(y0 + Math.cos(a0)*r0*h)+','+n(x1 + Math.sin(a1)*r1*h)+' '+n(y1 - Math.cos(a1)*r1*h)+','+n(x1)+' '+n(y1);
-          cy += 9*sm; x = x1; y = y1;
-        }
-      } else if(roll < .21){                            // now and then, a short zig-zag
-        var k2 = 3 + Math.floor(r()*3), side = r() < .5 ? 1 : -1;
-        for(var j=0;j<k2;j++){ x = cl(x + side*(30 + r()*70)*sm); y += (20 + r()*36)*sm; side = -side; d += ' L'+n(x)+' '+n(y); }
-      } else if(roll < .30){                            // a big swing right across the page
-        var tx = r() < .5 ? W*(.04 + r()*.2) : W*(.76 + r()*.2), ty = y + (160 + r()*260)*sm;
-        d += ' C'+n(x)+' '+n(y + 260*sm)+','+n(tx)+' '+n(ty - 300*sm)+','+n(tx)+' '+n(ty); x = tx; y = ty;
-      } else {                                          // wander
-        var nx = cl(x + (r()-.5)*W*.7), ny = y + (160 + r()*300)*sm;
-        d += ' C'+n(x + (r()-.5)*W*.46)+' '+n(y + (ny-y)*.35)+','+n(nx + (r()-.5)*W*.46)+' '+n(y + (ny-y)*.8)+','+n(nx)+' '+n(ny);
-        x = nx; y = ny;
+    var r = rng(p.seed), sm = W < 600 ? .62 : 1, pts = [], x = 20 + r()*(W-40), y = -60, vx = (r()-.5)*W*.2;
+    pts.push([x, y - 80]); pts.push([x, y]);
+    while(y < H + 120){
+      if(r() < .12){                                    // a loose loop, then carry on down
+        var R = (34 + r()*54)*sm, dir = r() < .5 ? 1 : -1, a = -Math.PI/2*dir, cx = x + R*dir, cy = y, m = 7;
+        for(var i=1;i<=m;i++){ var aa = a + dir*i*(Math.PI*2/m)*1.05, rr = R*(1 - .18*i/m);
+          pts.push([cx - Math.cos(aa)*rr*dir, cy + Math.sin(aa)*rr + i*5*sm]); }
+        x = pts[pts.length-1][0]; y = pts[pts.length-1][1];
       }
+      vx = vx*.55 + (r()-.5)*W*.42;                      // momentum makes it meander instead of jitter
+      x = Math.max(16, Math.min(W-16, x + vx)); if(x < 30 || x > W-30) vx = -vx*.5;
+      y += (170 + r()*230)*sm;
+      pts.push([x, y]);
+    }
+    pts.push([x, y + 200]);
+    var n = function(v){ return v.toFixed(1); }, d = 'M'+n(pts[1][0])+' '+n(pts[1][1]);
+    for(var j=1;j<pts.length-2;j++){                      // Catmull-Rom through the points: smooth, no kinks
+      var p0 = pts[j-1], p1 = pts[j], p2 = pts[j+1], p3 = pts[j+2];
+      d += ' C'+n(p1[0]+(p2[0]-p0[0])/6)+' '+n(p1[1]+(p2[1]-p0[1])/6)+','+n(p2[0]-(p3[0]-p1[0])/6)+' '+n(p2[1]-(p3[1]-p1[1])/6)+','+n(p2[0])+' '+n(p2[1]);
     }
     return d;
   }
@@ -1075,8 +1069,19 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       });
       spineBox.appendChild(bs);
     }
+    var first = spineBox.querySelector('svg'), mains = first ? first.querySelectorAll('path') : [], per = [];
+    pens.forEach(function(p){ per.push(p.g ? 4 : 1); });
+    var idx = 0;
+    pens.forEach(function(p, i){
+      idx += per[i]; var el = mains[idx-1]; if(!el) return;
+      var L = el.getTotalLength(), M = 360, ys = [], fr = [], top = -1e9;
+      for(var q=0;q<=M;q++){ var pt = el.getPointAtLength(L*q/M); top = Math.max(top, pt.y); ys.push(top); fr.push(q/M); }
+      spine[i].ys = ys; spine[i].fr = fr;
+    });
+    if(typeof onScroll === 'function') onScroll();      // redraw straight away, no waiting for the next scroll
   }
   buildSpine();
+  window.addEventListener('load', function(){ buildSpine(); onScroll(); });
   if('ResizeObserver' in window){ var rbT; new ResizeObserver(function(){ clearTimeout(rbT); rbT = setTimeout(buildSpine, 150); }).observe(spineBox); }
 
   /* ---------- the data: courses.json is the only thing to edit ---------- */
@@ -1301,8 +1306,12 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     if(!rm){
       var pageH = Math.max(1, doc.scrollHeight);
       spine.forEach(function(p){
-        // runs well ahead of the reader, finishes at the bottom, and never rubs itself out
-        var t = Math.max(p.t, prog, Math.min(1, (doc.scrollTop + window.innerHeight * p.k) / pageH));
+        // the tip follows the reader down the page, finishes at the very end, and never rubs itself out
+        var target = doc.scrollTop + window.innerHeight * p.k, t = 0;
+        if(p.ys){ var lo = 0, hi = p.ys.length - 1; while(lo < hi){ var mid = (lo + hi) >> 1; if(p.ys[mid] < target) lo = mid + 1; else hi = mid; } t = p.fr[lo]; }
+        else t = Math.min(1, target / pageH);
+        if(prog > .995) t = 1;
+        t = Math.max(p.t, t);
         if(t === p.t) return; p.t = t;
         spineBox.style.setProperty('--o'+p.n, String(Math.max(0, 1 - t)));
       });
