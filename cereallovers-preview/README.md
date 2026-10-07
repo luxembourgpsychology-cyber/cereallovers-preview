@@ -6,12 +6,35 @@
 > The other versions and the costs page are kept on the Desktop in `website-2026/preview-other-versions/`
 > and in the GitHub history, so any of them can go back up in a minute.
 
+> **Two languages (7 Oct 2026, boss feedback round):** French is the home page `/` (the main audience),
+> English is `/en`. The FR | EN switch sits at the top right and keeps your place on the page.
+> - `en.html` is the English page and the one to edit.
+> - `index.html` (French) is made from it by `website-2026/i18n/build_fr.py` (on the Desktop, outside this folder;
+>   the same script is in the GitHub repo under `tools/i18n/`):
+>   every English line is listed there with its French. Run `python3 website-2026/i18n/build_fr.py` after any
+>   change to `en.html`; it stops and names any line it cannot find.
+> - The page script picks its own words from `<html lang>`, and `courses.json` holds both languages
+>   (`{"en": "...", "fr": "..."}` wherever the text differs).
+> - The French Migra words (Café, Visite, Colombie, Éthiopie) are built from the existing letters by
+>   `website-2026/i18n/mg_fr.py`.
+>
+> Same round: **The wall** (after the atelier) shows the team, two short videos with sound on tap
+> (`img/b2/live/`), the clients' pin wall ("tag @cerealloves") and the Instagram and Facebook links, which are
+> also in the footer. The professional course links straight to its House of Training page (FR or EN) instead of
+> a "send me info" button. No machine brand and no second address anywhere on the site.
+>
+> Also: **café sound**. The "café sound" button (bottom left) plays `snd/cafe.m4a`, a 30-second murmur loop recorded in
+> the shop, muffled so no words can be made out. It only starts when someone taps it. **Visit** has the walk-in video
+> (`img/b2/live/walk.mp4`); the people in it agreed to be shown. Team faces are fine on the site; other customers
+> only with their OK, otherwise blur them with `website-2026/video/blurfaces.swift`.
+
 Two versions of a new cereallovers.lu, for internal review only.
 Plain HTML, CSS, images and fonts. No build step, no dependencies, no database.
 
 | file | what it is |
 |---|---|
-| `index.html` | the home page: Option B, Louder (the only page on the live site now) |
+| `index.html` | the home page in French: Option B, Louder (made from `en.html`, see above) |
+| `en.html` | the same page in English, at `/en`. Edit this one |
 | `a.html` (kept aside) | **Option A, Ink** — cream paper ground, colour in the marks |
 | `b-september.html` (kept aside) | **Option B, Loud**, the September version — every section a full brand colour |
 | `hands.html` (kept aside) | nine handwriting faces, to settle which pen the site uses |
@@ -31,7 +54,8 @@ and `costs.html` explains what running it would cost.
 | `index.html` | **Option B, Louder**, the home page. Courses first, a "send me more info" note at the top, the four granolas as their jar labels, three coffees, bars, cookies |
 | `courses.json` | **the only file to edit to keep the courses fresh** |
 | `costs.html` | hosting, sign-up and upkeep costs, for the decision |
-| `img/b2/` | the new photographs, graded and cropped (no faces, no price tags). `img/b2/bars/` holds the six studio bars, cut out with Adobe |
+| `img/b2/` | the new photographs, graded and cropped (no customers, no price tags). `img/b2/bars/` holds the six studio bars, cut out with Adobe |
+| `img/b2/wall/` `img/b2/live/` | the wall: team photos (staff only, from the 2025 shoot and October 2026) and the two videos with their poster frames |
 | `img/b2/eat/` | the bagels and bowls section: menu-art bagels and bowls cut out as rough stickers, plus one real shot of a bowl being made (pro shoot, hands only) |
 | `img/bags/coffee-n16–18.webp` | the three coffee bags, drawn clean from the real labels (front view, transparent background). Used by Option A and both Option B pages |
 | `mg/n1–n4.svg` | the N°1–N°4 granola numerals in Migra, cut from the toolbox. N° numbers are used only on the products they belong to; the menu uses words |

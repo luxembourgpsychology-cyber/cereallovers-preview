@@ -1,5 +1,5 @@
 {
-  "_read_me": "This one file feeds the courses and the city dates on /b. Change it, save it, and the page changes. Dates in YYYY-MM-DD. A session or event disappears by itself the day after its last date. 'updated' is printed on the page, so change it whenever you edit. Prices only show when show_prices is true.",
+  "_read_me": "This one file feeds the courses and the city dates on the site, in French (/) and English (/en). A text can be one line for both languages, or {\"en\": \"...\", \"fr\": \"...\"}. Dates in YYYY-MM-DD. A session or event disappears by itself the day after its last date. 'updated' is printed on the page, so change it whenever you edit. Prices only show when show_prices is true. A course with \"direct\": true is booked on its own site (book.url), so it gets no 'send me info' button.",
   "updated": "2026-10-07",
   "show_prices": false,
   "signup": {
@@ -7,109 +7,93 @@
     "email": "hello@cereallovers.lu"
   },
   "ticker": [
-    "registered by the Government of Luxembourg as an accredited training centre",
-    "small groups · everybody pulls shots · nobody spectates",
-    "we train on Ascaso, the machine you meet in a real café",
-    "every level bookable all year round"
+    {"en": "registered by the Government of Luxembourg as an accredited training centre", "fr": "reconnu par le Gouvernement du Luxembourg comme centre de formation agréé"},
+    {"en": "small groups · everybody pulls shots · nobody spectates", "fr": "petits groupes · tout le monde extrait · personne ne regarde"},
+    {"en": "professional machines, the kind you meet in a real café", "fr": "des machines professionnelles, comme dans un vrai café"},
+    {"en": "every level bookable all year round", "fr": "chaque niveau réservable toute l'année"}
   ],
   "courses": [
     {
       "id": "hobby",
       "name": "HOBBY",
-      "kicker": "for home, for curiosity",
+      "kicker": {"en": "for home, for curiosity", "fr": "pour la maison, par curiosité"},
       "colour": "#f8aba3",
       "img": "img/b2/c-three-cups.webp",
-      "hand": "for when your home espresso keeps disappointing you.",
-      "facts": [
-        "one Saturday morning",
-        "09:30 to 12:30",
-        "at the shop, Place du Théâtre",
-        "no prerequisites"
-      ],
-      "learn": [
-        "pick your theme: the art of espresso, or the art of latte art",
-        "pull a decent shot",
-        "steam milk that does not squeak",
-        "come alone, as a pair or with friends"
-      ],
+      "hand": {"en": "for when your home espresso keeps disappointing you.", "fr": "pour quand votre espresso maison vous déçoit encore."},
+      "facts": {
+        "en": ["one Saturday morning", "09:30 to 12:30", "at the shop, Place du Théâtre", "no prerequisites"],
+        "fr": ["un samedi matin", "09:30 à 12:30", "à la boutique, Place du Théâtre", "aucun prérequis"]
+      },
+      "learn": {
+        "en": ["pick your theme: the art of espresso, or the art of latte art", "pull a decent shot", "steam milk that does not squeak", "come alone, as a pair or with friends"],
+        "fr": ["choisissez votre thème : l'art de l'espresso, ou l'art du latte art", "extraire un vrai bon shot", "monter un lait qui ne siffle pas", "venez seul, à deux ou entre amis"]
+      },
       "book": {
-        "label": "send me the dates",
+        "label": {"en": "send me the dates", "fr": "envoyez-moi les dates"},
         "url": ""
       }
     },
     {
       "id": "pro",
-      "name": "PROFESSIONAL",
+      "name": {"en": "PROFESSIONAL", "fr": "PROFESSIONNEL"},
       "kicker": "Barista · du grain à la tasse",
       "colour": "#5fc5bf",
-      "img": "img/b2/c-ascaso.webp",
-      "hand": "for people who serve coffee to the public. or want to.",
-      "facts": [
-        "six hours over two mornings",
-        "09:00 to 12:00",
-        "in French",
-        "with House of Training"
-      ],
-      "learn": [
-        "morning one: theory at the Chambre de Commerce",
-        "morning two: hands on our machines",
-        "origins, processing, roasting, single origin or blend",
-        "taste wheel and cupping",
-        "extraction, grind, milk, latte art",
-        "machine and grinder maintenance"
-      ],
+      "img": "img/b2/c-rosetta-pour.webp",
+      "hand": {"en": "for people who serve coffee to the public. or want to.", "fr": "pour ceux qui servent du café au public. ou qui veulent le faire."},
+      "facts": {
+        "en": ["six hours over two mornings", "09:00 to 12:00", "in French", "with House of Training"],
+        "fr": ["six heures sur deux matinées", "09:00 à 12:00", "en français", "avec la House of Training"]
+      },
+      "learn": {
+        "en": ["morning one: theory at the Chambre de Commerce", "morning two: hands on our machines", "origins, processing, roasting, single origin or blend", "taste wheel and cupping", "extraction, grind, milk, latte art", "machine and grinder maintenance"],
+        "fr": ["matinée un : la théorie à la Chambre de Commerce", "matinée deux : les mains sur nos machines", "origines, traitement, torréfaction, pure origine ou assemblage", "roue des arômes et cupping", "extraction, mouture, lait, latte art", "entretien de la machine et du moulin"]
+      },
+      "direct": true,
       "book": {
-        "label": "register at houseoftraining.lu",
-        "url": "https://www.houseoftraining.lu"
+        "label": {"en": "register at House of Training", "fr": "s'inscrire à la House of Training"},
+        "url": {
+          "en": "https://www.houseoftraining.lu/en_GB/training/barista-du-grain-a-la-tasse-comprendre-la-culture-du-cafe-et-maitriser-lart-du-barista-12042",
+          "fr": "https://www.houseoftraining.lu/training/barista-du-grain-a-la-tasse-comprendre-la-culture-du-cafe-et-maitriser-lart-du-barista-12042"
+        }
       }
     },
     {
       "id": "master",
-      "name": "PRIVATE & MASTER",
-      "kicker": "built around your bar",
+      "name": {"en": "PRIVATE & MASTER", "fr": "PRIVÉ & MASTER"},
+      "kicker": {"en": "built around your bar", "fr": "construit autour de votre bar"},
       "colour": "#f4b63f",
-      "img": "img/b2/c-pour.webp",
-      "hand": "the same good coffee, four hundred times in a row, on a Saturday.",
-      "facts": [
-        "private booking only",
-        "any date you choose",
-        "at our atelier or on your machine",
-        "for people already behind a bar"
-      ],
-      "learn": [
-        "calibration and workflow",
-        "recipe development",
-        "diagnosing a bar that has drifted",
-        "advanced latte art",
-        "teaching your own team so the standard survives you"
-      ],
+      "img": "img/b2/c-bar-team.webp",
+      "hand": {"en": "the same good coffee, four hundred times in a row, on a Saturday.", "fr": "le même bon café, quatre cents fois de suite, un samedi."},
+      "facts": {
+        "en": ["private booking only", "any date you choose", "at our atelier or on your machine", "for people already behind a bar"],
+        "fr": ["uniquement en privé", "la date de votre choix", "dans notre atelier ou sur votre machine", "pour ceux qui sont déjà derrière un bar"]
+      },
+      "learn": {
+        "en": ["calibration and workflow", "recipe development", "diagnosing a bar that has drifted", "advanced latte art", "teaching your own team so the standard survives you"],
+        "fr": ["calibrage et organisation", "création de recettes", "diagnostiquer un bar qui a dérivé", "latte art avancé", "former votre propre équipe pour que le niveau tienne sans vous"]
+      },
       "book": {
-        "label": "tell us what goes wrong",
+        "label": {"en": "tell us what goes wrong", "fr": "dites-nous ce qui cloche"},
         "url": ""
       }
     },
     {
       "id": "team",
       "name": "TEAM BUILDING",
-      "kicker": "companies · HORECA · events",
+      "kicker": {"en": "companies · HORECA · events", "fr": "entreprises · HORECA · événements"},
       "colour": "#8dc15b",
       "img": "img/b2/c-latte-grid.webp",
-      "hand": "not a rope course. not a quiz.",
-      "facts": [
-        "small to large groups",
-        "90 minutes to a half day",
-        "at our atelier or at your office",
-        "HORECA staff trained on your own equipment"
-      ],
-      "learn": [
-        "latte art battle",
-        "cupping and tasting",
-        "blending, there is always a winner",
-        "coffee and chocolate pairing",
-        "brewing workshops, or fully custom"
-      ],
+      "hand": {"en": "not a rope course. not a quiz.", "fr": "pas un accrobranche. pas un quiz."},
+      "facts": {
+        "en": ["small to large groups", "90 minutes to a half day", "at our atelier or at your office", "HORECA staff trained on your own equipment"],
+        "fr": ["petits et grands groupes", "de 90 minutes à une demi-journée", "dans notre atelier ou dans vos bureaux", "équipes HORECA formées sur votre propre matériel"]
+      },
+      "learn": {
+        "en": ["latte art battle", "cupping and tasting", "blending, there is always a winner", "coffee and chocolate pairing", "brewing workshops, or fully custom"],
+        "fr": ["battle de latte art", "cupping et dégustation", "assemblage, il y a toujours un gagnant", "accords café et chocolat", "ateliers d'infusion, ou entièrement sur mesure"]
+      },
       "book": {
-        "label": "tell us the group size",
+        "label": {"en": "tell us the group size", "fr": "dites-nous combien vous êtes"},
         "url": ""
       }
     }
@@ -121,7 +105,7 @@
       "end": "2026-10-13",
       "time": "09:00–12:00",
       "where": "Chambre de Commerce + Cereal Lovers",
-      "note": "open group session",
+      "note": {"en": "open group session", "fr": "session en groupe ouvert"},
       "seats": "",
       "price": ""
     },
@@ -130,9 +114,9 @@
       "start": "2026-10-24",
       "end": "",
       "time": "09:30–12:30",
-      "where": "The shop · Place du Théâtre",
-      "note": "espresso or latte art, you choose",
-      "seats": "limited spots",
+      "where": {"en": "The shop · Place du Théâtre", "fr": "La boutique · Place du Théâtre"},
+      "note": {"en": "espresso or latte art, you choose", "fr": "espresso ou latte art, au choix"},
+      "seats": {"en": "limited spots", "fr": "places limitées"},
       "price": "175 €"
     },
     {
@@ -141,7 +125,7 @@
       "end": "2026-11-03",
       "time": "09:00–12:00",
       "where": "Chambre de Commerce + Cereal Lovers",
-      "note": "open group session",
+      "note": {"en": "open group session", "fr": "session en groupe ouvert"},
       "seats": "",
       "price": ""
     },
@@ -150,9 +134,9 @@
       "start": "2026-11-21",
       "end": "",
       "time": "09:30–12:30",
-      "where": "The shop · Place du Théâtre",
-      "note": "espresso or latte art, you choose",
-      "seats": "limited spots",
+      "where": {"en": "The shop · Place du Théâtre", "fr": "La boutique · Place du Théâtre"},
+      "note": {"en": "espresso or latte art, you choose", "fr": "espresso ou latte art, au choix"},
+      "seats": {"en": "limited spots", "fr": "places limitées"},
       "price": "175 €"
     },
     {
@@ -160,75 +144,35 @@
       "start": "2026-12-19",
       "end": "",
       "time": "09:30–12:30",
-      "where": "The shop · Place du Théâtre",
-      "note": "espresso or latte art, you choose",
-      "seats": "limited spots",
+      "where": {"en": "The shop · Place du Théâtre", "fr": "La boutique · Place du Théâtre"},
+      "note": {"en": "espresso or latte art, you choose", "fr": "espresso ou latte art, au choix"},
+      "seats": {"en": "limited spots", "fr": "places limitées"},
       "price": "175 €"
     }
   ],
   "city": {
-    "source": "Cityshopping Luxembourg, calendrier commercial 2027"
+    "source": {"en": "Cityshopping Luxembourg, 2027 commercial calendar", "fr": "Cityshopping Luxembourg, calendrier commercial 2027"}
   },
   "events": [
-    {
-      "name": "Soldes d'hiver",
-      "start": "2027-01-02",
-      "end": "2027-01-30",
-      "note": "shop first. then sit down."
-    },
-    {
-      "name": "Fréijoersshopping",
-      "start": "2027-03-21",
-      "end": "",
-      "note": "spring shopping, spring granola."
-    },
-    {
-      "name": "Octave",
-      "start": "2027-04-17",
-      "end": "2027-05-02",
-      "note": "the city fills up. coffee's on."
-    },
-    {
-      "name": "Stroossemaart",
-      "start": "2027-05-22",
-      "end": "",
-      "note": "the street is a market. we're on the street."
-    },
-    {
-      "name": "Soldes d'été",
-      "start": "2027-06-26",
-      "end": "2027-07-24",
-      "note": "iced coffee weather."
-    },
-    {
-      "name": "Schueberfouer",
-      "start": "2027-08-20",
-      "end": "2027-09-08",
-      "note": "breakfast before the rides."
-    },
-    {
-      "name": "Braderie",
-      "start": "2027-09-06",
-      "end": "",
-      "note": "the whole city outside. us too."
-    },
-    {
-      "name": "Mantelweek-end",
-      "start": "2027-10-23",
-      "end": "2027-10-24",
-      "note": "coat on. coffee in hand."
-    },
-    {
-      "name": "Winterlights",
-      "start": "2027-11-19",
-      "end": "2028-01-02",
-      "note": "lights on. hot choc on."
-    },
-    {
-      "name": "Black Friday",
-      "start": "2027-11-26",
-      "end": "",
-      "note": "black friday? black coffee."
-    }
+    {"name": {"en": "Winter sales", "fr": "Soldes d'hiver"}, "start": "2027-01-02", "end": "2027-01-30",
+     "note": {"en": "shop first. then sit down.", "fr": "d'abord le shopping. ensuite on s'assoit."}},
+    {"name": "Fréijoersshopping", "start": "2027-03-21", "end": "",
+     "note": {"en": "spring shopping, spring granola.", "fr": "shopping de printemps, granola de printemps."}},
+    {"name": "Octave", "start": "2027-04-17", "end": "2027-05-02",
+     "note": {"en": "the city fills up. coffee's on.", "fr": "la ville se remplit. le café est prêt."}},
+    {"name": "Stroossemaart", "start": "2027-05-22", "end": "",
+     "note": {"en": "the street is a market. we're on the street.", "fr": "la rue devient un marché. on est dans la rue."}},
+    {"name": {"en": "Summer sales", "fr": "Soldes d'été"}, "start": "2027-06-26", "end": "2027-07-24",
+     "note": {"en": "iced coffee weather.", "fr": "un temps à café glacé."}},
+    {"name": "Schueberfouer", "start": "2027-08-20", "end": "2027-09-08",
+     "note": {"en": "breakfast before the rides.", "fr": "le petit-déj avant les manèges."}},
+    {"name": "Braderie", "start": "2027-09-06", "end": "",
+     "note": {"en": "the whole city outside. us too.", "fr": "toute la ville dehors. nous aussi."}},
+    {"name": "Mantelweek-end", "start": "2027-10-23", "end": "2027-10-24",
+     "note": {"en": "coat on. coffee in hand.", "fr": "manteau sur le dos. café à la main."}},
+    {"name": "Winterlights", "start": "2027-11-19", "end": "2028-01-02",
+     "note": {"en": "lights on. hot choc on.", "fr": "lumières allumées. chocolat chaud aussi."}},
+    {"name": "Black Friday", "start": "2027-11-26", "end": "",
+     "note": {"en": "black friday? black coffee.", "fr": "black friday ? café noir."}}
   ]
 }
