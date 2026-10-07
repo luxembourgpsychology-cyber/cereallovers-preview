@@ -322,6 +322,37 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .shelf::after{content:"";position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(to top,rgba(0,0,0,.55),rgba(0,0,0,0))}
 .shelf figcaption{position:absolute;left:5%;bottom:10%;z-index:2;color:#fff;font-family:var(--hand);font-size:clamp(24px,3vw,40px);line-height:1.05}
 
+/* bagels + bowls */
+#eat{background:var(--paper);padding:72px 0 66px;border-top:2px solid var(--ink)}
+#eat h2{font-size:clamp(38px,5.4vw,78px)}
+.eat-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 40px}
+.eat-head .hand{max-width:30ch}
+.eat{display:grid;grid-template-columns:1fr 1fr;gap:30px 44px;margin-top:26px}
+.eatc h3{font-size:clamp(26px,2.6vw,34px);margin:6px 0 12px}
+.eat-pics{position:relative;isolation:isolate;height:clamp(220px,24vw,310px)}
+.eat-pics .splat{left:-16%;top:-26%;width:120%;height:150%}
+.eat-pics .splat-host + .splat-host .splat{left:40%;top:18%;width:78%;height:110%}
+.cut{position:absolute;filter:drop-shadow(0 14px 14px rgba(0,0,0,.25));transition:rotate .3s, translate .3s}
+.cut:hover{rotate:0deg!important;translate:0 -6px}
+.cut.b1{left:4%;bottom:0;height:100%;rotate:-7deg}
+.cut.b2{right:6%;bottom:2%;height:96%;rotate:6deg}
+.cut.w1{left:0;top:2%;width:44%;rotate:-9deg}
+.cut.w2{left:30%;bottom:-2%;width:38%;rotate:7deg;z-index:1}
+.eat-pics .real{position:absolute;right:0;top:0;width:38%;rotate:4deg;margin:0;z-index:2}
+.eat-pics .real img{aspect-ratio:1}
+.eat-pics .tag{position:absolute;z-index:3;font-family:var(--mk);font-size:17px;line-height:1;padding:7px 10px 5px;border:2px solid var(--ink)}
+.eat-pics .tr{left:0;top:6%;background:var(--acid);rotate:-6deg}
+.eat-pics .tv{right:2%;top:2%;background:var(--silk);rotate:5deg}
+.menu{display:flex;flex-wrap:wrap;gap:8px 8px;list-style:none;padding:0;margin:0}
+.menu li{display:inline-flex;align-items:baseline;gap:7px;background:#fff;border:2px solid var(--ink);padding:6px 9px 5px;rotate:var(--r,0deg)}
+.menu li:nth-child(3n+1){--r:-1.2deg} .menu li:nth-child(3n+2){--r:.8deg} .menu li:nth-child(4n){--r:-.5deg}
+.menu b{font:700 11.5px/1.1 var(--sans);letter-spacing:.08em;text-transform:uppercase}
+.menu span{font-size:12px;line-height:1.2;color:#333}
+.menu li.vg{background:var(--silk)}
+.menu li.gf{background:var(--jade)}
+.menu li.month{background:var(--acid)}
+.legend{display:flex;align-items:center;gap:8px;margin:26px 0 0;font:700 10px/1.4 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.vgd{display:inline-block;width:14px;height:14px;background:var(--silk);border:2px solid var(--ink)}
 /* bars + cookies */
 #bars{background:var(--marker);padding:94px 0 80px}
 .bars{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:44px;align-items:start}
@@ -457,6 +488,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   .bag{min-height:0}
   .bars-ph .sm{display:none}
   .ck{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .eat{grid-template-columns:1fr}
   .town{grid-template-columns:repeat(2,minmax(0,1fr))}
   .barcat{grid-template-columns:repeat(2,minmax(0,1fr));gap:30px 18px}
   .polas{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -509,7 +541,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       <a href="#dates" data-k="2"><span class="w">Dates</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
       <a href="#granola" data-k="3"><span class="w">Granola</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
       <a href="#coffee" data-k="4"><span class="w">Coffee</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
-      <a href="#bars" data-k="5"><span class="w">Bars</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
+      <a href="#eat" data-k="5"><span class="w">Eat</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
       <a href="#visit" data-k="6"><span class="w">Visit</span><svg class="sc" viewBox="0 0 460 400" preserveAspectRatio="none" aria-hidden="true"><path d="M 376 52 C 270 -4 65 11 30 169 C -9 344 164 399 338 358 C 467 330 474 124 376 52 M 375 54 C 277 19 88 11 47 147 C 6 294 115 387 293 371" style="--w:2.2"/></svg></a>
     </nav>
   </div>
@@ -771,6 +803,36 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     <figcaption>and this is where<br>they actually live.</figcaption></figure>
 </section>
 
+<!-- ================= BAGELS + BOWLS ================= -->
+<section id="eat" data-k="5" data-name="bagels &amp; bowls">
+  <div class="wrap">
+    <div class="eat-head">
+      <div><p class="eye">LE MENU &#183; ALL DAY &#183; REGULAR OR VEGAN</p>
+        <h2 style="margin-top:14px">Crazy famous <span class="mark">bagels.<svg class="sc dr" viewBox="0 0 500 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 30 68 L 466 28 M 27 88 L 467 49" style="--s:var(--acid);--w:24"/></svg></span><br>Crazy good bowls.</h2></div>
+      <p class="hand">every single one comes regular or vegan.<br>go crazy, mix it up.</p>
+    </div>
+    <div class="eat">
+      <article class="eatc">
+        <div class="eat-pics"><span class="splat-host" data-seed="21" data-c="#ef4ea2" aria-hidden="true"></span><span class="splat-host" data-seed="47" data-c="#ff6b21" aria-hidden="true"></span>
+          <img class="cut b1" src="img/b2/eat/bagel-regular.webp" alt="Regular bagel with smoked salmon, cucumber, tomato and spinach" loading="lazy">
+          <img class="cut b2" src="img/b2/eat/bagel-vegan.webp" alt="Vegan bagel with cucumber, radish and salad" loading="lazy">
+          <span class="tag tr">regular</span><span class="tag tv">vegan</span></div>
+        <h3>Bagels</h3>
+        <ul class="menu"><li><b>Steve</b><span>cream cheese, tomato, cucumber</span></li><li><b>Sergio</b><span>+ ham, basil</span></li><li><b>Siggi</b><span>+ smoked salmon, dill</span></li><li class="vg"><b>Sam</b><span>hummus, onion, pepper</span></li><li class="vg"><b>Simon</b><span>vegan cream cheese</span></li><li class="vg"><b>Spencer</b><span>+ smoked tofu</span></li><li class="vg"><b>Sophie</b><span>vegan or regular cream cheese</span></li><li class="month"><b>Bagel of the month</b><span>ask the team</span></li></ul>
+      </article>
+      <article class="eatc">
+        <div class="eat-pics"><span class="splat-host" data-seed="33" data-c="#e8ff3a" aria-hidden="true"></span><span class="splat-host" data-seed="58" data-c="#5fc5bf" aria-hidden="true"></span>
+          <img class="cut w1" src="img/b2/eat/bowl-1.webp" alt="Yogurt bowl with granola, almonds and blueberries" loading="lazy">
+          <img class="cut w2" src="img/b2/eat/bowl-2.webp" alt="Yogurt bowl with granola and blueberries" loading="lazy">
+          <figure class="snap real"><span class="tape" aria-hidden="true"></span><img src="img/b2/eat/bowl-making.webp" alt="A yogurt bowl being made with strawberries and banana" loading="lazy"><figcaption>made to order, gloves on.</figcaption></figure></div>
+        <h3>Yogurt bowls</h3>
+        <ul class="menu"><li><b>Berry Bliss</b><span>berries</span></li><li><b>Nutty</b><span>nuts, honey</span></li><li><b>Fruity Fusion</b><span>fresh fruit</span></li><li><b>Pink Granola</b><span>cranberries, chia</span></li><li><b>Chocolate Granola</b><span>hazelnuts, almonds</span></li><li><b>Green Goddess</b><span>nuts, chia, dates</span></li><li class="vg"><b>Banana Crunch</b><span>choc granola, banana</span></li><li class="vg"><b>Chocolate Date</b><span>dark choc, dates</span></li><li class="vg"><b>Cinnamon Crunch</b><span>agave, cinnamon</span></li><li class="vg"><b>Cranberry Crisp</b><span>apricots, cranberries</span></li><li class="vg"><b>Exotic Burst</b><span>kiwi, pineapple</span></li><li class="gf"><b>Pure</b><span>nuts, fruit &#183; gluten-free</span></li></ul>
+      </article>
+    </div>
+    <p class="legend"><i class="vgd"></i> green = vegan. every bowl can also go the other way: regular or vegan, you choose.</p>
+  </div>
+</section>
+
 <!-- ================= BARS + COOKIES ================= -->
 <section id="bars" data-k="5" data-name="bars">
   <span class="dots" aria-hidden="true"></span>
@@ -883,7 +945,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       <a href="#dates"><svg class="ic" viewBox="0 0 200 200" aria-hidden="true"><path d="M100 100 c 10 -5 20 5 15 15 c -6 14 -28 10 -30 -6 c -3 -22 26 -34 44 -20 c 22 17 12 52 -14 58 c -32 8 -58 -22 -48 -52 c 12 -36 58 -46 86 -20"/></svg><span>Dates &#183; the atelier</span></a>
       <a href="#granola"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 85 C 20 60, 5 40, 20 22 C 32 8, 48 18, 50 30 C 52 18, 68 8, 80 22 C 95 40, 80 60, 50 85 Z"/></svg><span>Granola &#183; four jars</span></a>
       <a href="#coffee"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M5 60 L20 35 L35 60 L50 35 L65 60 L80 35 L95 60"/></svg><span>Coffee &#183; three origins</span></a>
-      <a href="#bars"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M20 20 L80 80 M80 18 L22 82"/></svg><span>Bars &#183; cookies</span></a>
+      <a href="#eat"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M20 20 L80 80 M80 18 L22 82"/></svg><span>Eat &#183; bagels, bowls, bars</span></a>
       <a href="#visit"><svg class="ic" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 10 L50 28 M50 72 L50 90 M10 50 L28 50 M72 50 L90 50 M22 22 L34 34 M66 66 L78 78 M78 22 L66 34 M34 66 L22 78"/></svg><span>Visit &#183; two addresses</span></a>
     </nav>
     <div class="strip" aria-label="Colour control strip">
@@ -1175,6 +1237,11 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     var sv = host.querySelector('.splat');
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ sv.classList.add('go'); if(btn) btn.classList.add('wob'); }); });
   }
+  $$('.splat-host').forEach(function(h){
+    h.innerHTML = splatSVG(+h.dataset.seed, h.dataset.c); var sv = h.firstChild; sv.setAttribute('preserveAspectRatio','none');
+    if(rm || !io){ sv.classList.add('go'); return; }
+    new IntersectionObserver(function(es, ob){ if(es[0].isIntersecting){ sv.classList.add('go'); ob.disconnect(); } },{threshold:.2}).observe(h.parentNode);
+  });
   ctaSplatHost = document.createElement('div'); ctaSplatHost.style.transition = 'opacity .25s'; document.body.appendChild(ctaSplatHost);
   setTimeout(function(){
     if(noteVisible) splatAt($('.sendrow'), 7, '#ef4ea2', $('.send'));

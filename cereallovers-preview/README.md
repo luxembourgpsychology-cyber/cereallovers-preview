@@ -32,6 +32,7 @@ and `costs.html` explains what running it would cost.
 | `courses.json` | **the only file to edit to keep the courses fresh** |
 | `costs.html` | hosting, sign-up and upkeep costs, for the decision |
 | `img/b2/` | the new photographs, graded and cropped (no faces, no price tags). `img/b2/bars/` holds the six studio bars, cut out with Adobe |
+| `img/b2/eat/` | the bagels and bowls section: menu-art bagels and bowls cut out as rough stickers, plus one real shot of a bowl being made (pro shoot, hands only) |
 | `img/bags/coffee-n16–18.webp` | the three coffee bags, drawn clean from the real labels (front view, transparent background). Used by Option A and both Option B pages |
 | `mg/n1–n4.svg` | the N°1–N°4 granola numerals in Migra, cut from the toolbox. N° numbers are used only on the products they belong to; the menu uses words |
 
