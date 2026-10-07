@@ -1015,13 +1015,11 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   /* ---------- the spine: fourteen pens, glowing, drawn by scrolling, all the way to the end ---------- */
   // c colour, w line width, o opacity, k how far ahead of the reader the pen runs, g glow
   var pens = [
-    {c:'#000000',w:3.6,o:.55,k:.80,g:0, seed:11}, {c:'#ef3936',w:4.2,o:.90,k:.95,g:1, seed:23},
-    {c:'#001ffc',w:3.2,o:.80,k:.70,g:1, seed:37}, {c:'#ef4ea2',w:7.0,o:.55,k:1.05,g:1, seed:41},
-    {c:'#ff6b21',w:3.0,o:.85,k:.62,g:1, seed:53}, {c:'#8dc15b',w:5.0,o:.65,k:.88,g:1, seed:67},
-    {c:'#5fc5bf',w:3.4,o:.80,k:.74,g:1, seed:79}, {c:'#e8ff3a',w:9.0,o:.45,k:1.00,g:1, seed:97},
-    {c:'#f4b63f',w:2.6,o:.90,k:.58,g:0, seed:109},{c:'#b87490',w:4.4,o:.50,k:.84,g:1, seed:113},
-    {c:'#f8aba3',w:11, o:.35,k:.92,g:0, seed:127},{c:'#ce561c',w:2.2,o:.85,k:.66,g:0, seed:139},
-    {c:'#ffffff',w:2.4,o:.85,k:.78,g:1, seed:151},{c:'#001ffc',w:1.6,o:.95,k:1.10,g:0, seed:163}
+    {c:'#000000',w:2.4,o:.45,k:1.5,g:0, seed:11}, {c:'#ef3936',w:3.0,o:.80,k:1.8,g:1, seed:23},
+    {c:'#001ffc',w:2.2,o:.70,k:1.3,g:1, seed:37}, {c:'#ef4ea2',w:5.0,o:.45,k:1.7,g:1, seed:41},
+    {c:'#ff6b21',w:2.2,o:.75,k:1.4,g:0, seed:53}, {c:'#8dc15b',w:3.4,o:.55,k:1.6,g:0, seed:67},
+    {c:'#e8ff3a',w:8.0,o:.30,k:1.9,g:1, seed:97}, {c:'#5fc5bf',w:2.4,o:.65,k:1.45,g:0, seed:79},
+    {c:'#ffffff',w:1.8,o:.70,k:1.55,g:1, seed:151}
   ];
   var svg = $('#spineSvg'), spine = [], small = window.innerWidth < 600;
   function rng(seed){ return function(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }; }
@@ -1034,21 +1032,39 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   }
   pens.forEach(function(p){
     var r = rng(p.seed), x = 60 + r()*880, y = -40, d = 'M'+x.toFixed(0)+' '+y;
+    var cl = function(v){ return Math.max(12, Math.min(988, v)); }, n = function(v){ return v.toFixed(0); };
     while(y < 12060){
-      var nx = Math.max(20, Math.min(980, x + (r()-.5)*780)), ny = y + 340 + r()*200, c1, c2;
-      if(r() < .22){ c1 = [x + (r()>.5?1:-1)*(240+r()*220), ny + 150]; c2 = [nx + (r()>.5?1:-1)*(240+r()*220), y - 70]; }
-      else { c1 = [x + (r()-.5)*440, y + (ny-y)*.4]; c2 = [nx + (r()-.5)*440, y + (ny-y)*.75]; }
-      d += ' C'+c1[0].toFixed(0)+' '+c1[1].toFixed(0)+','+c2[0].toFixed(0)+' '+c2[1].toFixed(0)+','+nx.toFixed(0)+' '+ny.toFixed(0);
-      x = nx; y = ny;
+      var roll = r();
+      if(roll < .17){                                   // a twirl: one or two loops, tightening
+        var R = 26 + r()*60, dir = r() < .5 ? 1 : -1, turns = 1 + r()*.9, a = r()*Math.PI*2;
+        var cx = x - Math.cos(a)*R, cy = y - Math.sin(a)*R, steps = Math.ceil(turns*4), da = dir*turns*Math.PI*2/steps;
+        for(var i=0;i<steps;i++){
+          var r0 = R*(1 - .45*i/steps), r1 = R*(1 - .45*(i+1)/steps), a0 = a + da*i, a1 = a0 + da, h = 4/3*Math.tan(da/4);
+          var x0 = cx + Math.cos(a0)*r0, y0 = cy + Math.sin(a0)*r0, x1 = cx + Math.cos(a1)*r1, y1 = cy + Math.sin(a1)*r1;
+          d += ' C'+n(x0 - Math.sin(a0)*r0*h)+' '+n(y0 + Math.cos(a0)*r0*h)+','+n(x1 + Math.sin(a1)*r1*h)+' '+n(y1 - Math.cos(a1)*r1*h)+','+n(x1)+' '+n(y1);
+          cy += 9;                                      // the loops drift down a little as they turn
+          x = x1; y = y1;
+        }
+      } else if(roll < .21){                            // now and then, a short zig-zag
+        var k2 = 3 + Math.floor(r()*3), side = r() < .5 ? 1 : -1;
+        for(var j=0;j<k2;j++){ x = cl(x + side*(30 + r()*70)); y += 20 + r()*36; side = -side; d += ' L'+n(x)+' '+n(y); }
+      } else if(roll < .30){                            // a big swing right across the page
+        var tx = r() < .5 ? 40 + r()*200 : 760 + r()*200, ty = y + 160 + r()*260;
+        d += ' C'+n(x)+' '+n(y + 260)+','+n(tx)+' '+n(ty - 300)+','+n(tx)+' '+n(ty); x = tx; y = ty;
+      } else {                                          // wander
+        var nx = cl(x + (r()-.5)*700), ny = y + 160 + r()*300;
+        d += ' C'+n(x + (r()-.5)*460)+' '+n(y + (ny-y)*.35)+','+n(nx + (r()-.5)*460)+' '+n(y + (ny-y)*.8)+','+n(nx)+' '+n(ny);
+        x = nx; y = ny;
+      }
     }
     var f = small ? .7 : 1, layers = [];
     if(p.g){                                   // a soft glow: three wide, faint strokes under the line
-      layers.push(mkPath(d, p.c, p.w*6.5*f, .05));
-      layers.push(mkPath(d, p.c, p.w*3.6*f, .09));
-      layers.push(mkPath(d, p.c, p.w*2.0*f, .16));
+      layers.push(mkPath(d, p.c, p.w*6*f, .03));
+      layers.push(mkPath(d, p.c, p.w*3.4*f, .06));
+      layers.push(mkPath(d, p.c, p.w*1.9*f, .10));
     }
     layers.push(mkPath(d, p.c, p.w*f, p.o));
-    spine.push({els:layers, k:p.k});
+    spine.push({els:layers, k:p.k, t:0});
   });
 
   /* ---------- the data: courses.json is the only thing to edit ---------- */
@@ -1274,7 +1290,9 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       var pageH = Math.max(1, doc.scrollHeight);
       spine.forEach(function(p){
         // each pen runs a little ahead of the reader at its own pace, and every pen reaches the bottom
-        var t = Math.max(prog, Math.min(1, (doc.scrollTop + window.innerHeight * p.k) / pageH));
+        // runs well ahead of the reader, finishes at the bottom, and never rubs itself out
+        var t = Math.max(p.t, prog, Math.min(1, (doc.scrollTop + window.innerHeight * p.k) / pageH));
+        if(t === p.t) return; p.t = t;
         var off = String(1 - t);
         for(var i=0;i<p.els.length;i++) p.els[i].style.strokeDashoffset = off;
       });
