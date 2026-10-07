@@ -1,20 +1,26 @@
 # Cereal Lovers 2026 — private preview
 
+
+> **Now (7 Oct 2026): the site shows one version only, Option B Louder, at the home page `/`.**
+> Old addresses (`/b`, `/a`, `/b-september`, `/hands`, `/costs`) redirect to it (see `vercel.json`).
+> The other versions and the costs page are kept on the Desktop in `website-2026/preview-other-versions/`
+> and in the GitHub history, so any of them can go back up in a minute.
+
 Two versions of a new cereallovers.lu, for internal review only.
 Plain HTML, CSS, images and fonts. No build step, no dependencies, no database.
 
 | file | what it is |
 |---|---|
-| `index.html` | the front door: two buttons |
-| `a.html` | **Option A, Ink** — cream paper ground, colour in the marks |
-| `b-september.html` | **Option B, Loud**, the September version — every section a full brand colour |
-| `hands.html` | nine handwriting faces, to settle which pen the site uses |
+| `index.html` | the home page: Option B, Louder (the only page on the live site now) |
+| `a.html` (kept aside) | **Option A, Ink** — cream paper ground, colour in the marks |
+| `b-september.html` (kept aside) | **Option B, Loud**, the September version — every section a full brand colour |
+| `hands.html` (kept aside) | nine handwriting faces, to settle which pen the site uses |
 | `img/` `mg/` `el/` `thumb/` | photographs, PP Migra outlines cut to SVG, toolbox elements, thumbnails |
 | `fonts/` `fonts.css` | the webfonts, served from this site, not from Google |
 | `vercel.json` | clean URLs (`/a` instead of `/a.html`), caching, no-index headers |
 | `robots.txt` | tells search engines to stay away |
 
-## New, October 2026: Option B pushed further (`/b`)
+## New, October 2026: Option B pushed further (the home page)
 
 `b.html` is now Option B with the volume up and the barista courses first. The September version
 of Option B is kept at `b-september.html` (`/b-september`). The front page shows the new one first,
@@ -22,7 +28,7 @@ and `costs.html` explains what running it would cost.
 
 | file | what it is |
 |---|---|
-| `b.html` | **Option B, Louder**. Courses first, a "send me more info" note at the top, the four granolas as their jar labels, three coffees, bars, cookies |
+| `index.html` | **Option B, Louder**, the home page. Courses first, a "send me more info" note at the top, the four granolas as their jar labels, three coffees, bars, cookies |
 | `courses.json` | **the only file to edit to keep the courses fresh** |
 | `costs.html` | hosting, sign-up and upkeep costs, for the decision |
 | `img/b2/` | the new photographs, graded and cropped (no faces, no price tags). `img/b2/bars/` holds the six studio bars, cut out with Adobe |
@@ -40,6 +46,7 @@ publishes it within a minute.
 - Change `"updated"` to today's date whenever you edit. It is printed on the page.
 - `"show_prices": true` shows the `"price"` of each session. It is `false` now, as everywhere else.
 - Course descriptions, photos and the yellow ticker lines are in the same file.
+- So are the city's big days (`"events"`, from the Cityshopping Luxembourg 2027 calendar). Same rule: an event drops off the day after it ends. Add next year's dates the same way.
 
 Keep the commas and quotes exactly as they are. If the page says "the course list did not load",
 a comma is missing. GitHub shows a red mark on the line.

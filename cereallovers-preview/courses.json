@@ -1,6 +1,6 @@
 {
-  "_read_me": "This one file feeds the courses on /b. Change it, save it, and the page changes. Dates in YYYY-MM-DD. A session disappears by itself the day after its last date. 'updated' is printed on the page, so change it whenever you edit. Prices only show when show_prices is true.",
-  "updated": "2026-10-06",
+  "_read_me": "This one file feeds the courses and the city dates on /b. Change it, save it, and the page changes. Dates in YYYY-MM-DD. A session or event disappears by itself the day after its last date. 'updated' is printed on the page, so change it whenever you edit. Prices only show when show_prices is true.",
+  "updated": "2026-10-07",
   "show_prices": false,
   "signup": {
     "endpoint": "",
@@ -164,6 +164,71 @@
       "note": "espresso or latte art, you choose",
       "seats": "limited spots",
       "price": "175 €"
+    }
+  ],
+  "city": {
+    "source": "Cityshopping Luxembourg, calendrier commercial 2027"
+  },
+  "events": [
+    {
+      "name": "Soldes d'hiver",
+      "start": "2027-01-02",
+      "end": "2027-01-30",
+      "note": "shop first. then sit down."
+    },
+    {
+      "name": "Fréijoersshopping",
+      "start": "2027-03-21",
+      "end": "",
+      "note": "spring shopping, spring granola."
+    },
+    {
+      "name": "Octave",
+      "start": "2027-04-17",
+      "end": "2027-05-02",
+      "note": "the city fills up. coffee's on."
+    },
+    {
+      "name": "Stroossemaart",
+      "start": "2027-05-22",
+      "end": "",
+      "note": "the street is a market. we're on the street."
+    },
+    {
+      "name": "Soldes d'été",
+      "start": "2027-06-26",
+      "end": "2027-07-24",
+      "note": "iced coffee weather."
+    },
+    {
+      "name": "Schueberfouer",
+      "start": "2027-08-20",
+      "end": "2027-09-08",
+      "note": "breakfast before the rides."
+    },
+    {
+      "name": "Braderie",
+      "start": "2027-09-06",
+      "end": "",
+      "note": "the whole city outside. us too."
+    },
+    {
+      "name": "Mantelweek-end",
+      "start": "2027-10-23",
+      "end": "2027-10-24",
+      "note": "coat on. coffee in hand."
+    },
+    {
+      "name": "Winterlights",
+      "start": "2027-11-19",
+      "end": "2028-01-02",
+      "note": "lights on. hot choc on."
+    },
+    {
+      "name": "Black Friday",
+      "start": "2027-11-26",
+      "end": "",
+      "note": "black friday? black coffee."
     }
   ]
 }

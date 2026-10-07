@@ -6,22 +6,74 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
       ]
     },
     {
       "source": "/fonts/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/(img|mg|el|thumb)/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/b",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/b2",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/a",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/b-september",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/hands",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/costs",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": false
     }
   ]
 }
