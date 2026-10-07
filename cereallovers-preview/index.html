@@ -98,7 +98,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   background-image:radial-gradient(rgba(0,0,0,.16) 1.15px,transparent 1.35px);background-size:9px 9px}
 
 /* the ink spine: seven pens drawing down the whole page */
-#spine{position:absolute;inset:0;z-index:5;pointer-events:none;mix-blend-mode:multiply}
+#spine{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
 #spine svg{width:100%;height:100%;display:block}
 #spine path{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1 1.02;stroke-dashoffset:1}
 
@@ -1012,28 +1012,43 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   });
   watch(document);
 
-  /* ---------- the spine: seven pens, generated, drawn by scrolling ---------- */
+  /* ---------- the spine: fourteen pens, glowing, drawn by scrolling, all the way to the end ---------- */
+  // c colour, w line width, o opacity, k how far ahead of the reader the pen runs, g glow
   var pens = [
-    {c:'#000',w:4.2,o:.5,s:1.00,seed:11},{c:'#ef3936',w:4,o:.85,s:1.18,seed:23},{c:'#001ffc',w:3.6,o:.75,s:.86,seed:37},
-    {c:'#ef4ea2',w:7,o:.6,s:1.38,seed:41},{c:'#ff6b21',w:3.4,o:.8,s:.72,seed:53},{c:'#8dc15b',w:5,o:.7,s:1.06,seed:67},
-    {c:'#5fc5bf',w:3.4,o:.75,s:.94,seed:79},{c:'#e8ff3a',w:9,o:.55,s:1.25,seed:97},{c:'#001ffc',w:1.8,o:.9,s:1.55,seed:131}
+    {c:'#000000',w:3.6,o:.55,k:.80,g:0, seed:11}, {c:'#ef3936',w:4.2,o:.90,k:.95,g:1, seed:23},
+    {c:'#001ffc',w:3.2,o:.80,k:.70,g:1, seed:37}, {c:'#ef4ea2',w:7.0,o:.55,k:1.05,g:1, seed:41},
+    {c:'#ff6b21',w:3.0,o:.85,k:.62,g:1, seed:53}, {c:'#8dc15b',w:5.0,o:.65,k:.88,g:1, seed:67},
+    {c:'#5fc5bf',w:3.4,o:.80,k:.74,g:1, seed:79}, {c:'#e8ff3a',w:9.0,o:.45,k:1.00,g:1, seed:97},
+    {c:'#f4b63f',w:2.6,o:.90,k:.58,g:0, seed:109},{c:'#b87490',w:4.4,o:.50,k:.84,g:1, seed:113},
+    {c:'#f8aba3',w:11, o:.35,k:.92,g:0, seed:127},{c:'#ce561c',w:2.2,o:.85,k:.66,g:0, seed:139},
+    {c:'#ffffff',w:2.4,o:.85,k:.78,g:1, seed:151},{c:'#001ffc',w:1.6,o:.95,k:1.10,g:0, seed:163}
   ];
-  var svg = $('#spineSvg'), spine = [];
+  var svg = $('#spineSvg'), spine = [], small = window.innerWidth < 600;
   function rng(seed){ return function(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }; }
+  function mkPath(d, col, w, o){
+    var el = document.createElementNS('http://www.w3.org/2000/svg','path');
+    el.setAttribute('d', d); el.setAttribute('pathLength','1');
+    el.style.stroke = col; el.style.strokeWidth = w; el.style.opacity = o;
+    if(rm) el.style.strokeDashoffset = 0;
+    svg.appendChild(el); return el;
+  }
   pens.forEach(function(p){
-    var r = rng(p.seed), x = 80 + r()*840, y = 0, d = 'M'+x.toFixed(0)+' 0';
-    while(y < 12000){
-      var nx = Math.max(30, Math.min(970, x + (r()-.5)*760)), ny = y + 380 + r()*160, c1, c2;
-      if(r() < .2){ c1 = [x + (r()>.5?1:-1)*(260+r()*200), ny + 140]; c2 = [nx + (r()>.5?1:-1)*(260+r()*200), y - 60]; }
-      else { c1 = [x + (r()-.5)*420, y + (ny-y)*.4]; c2 = [nx + (r()-.5)*420, y + (ny-y)*.75]; }
+    var r = rng(p.seed), x = 60 + r()*880, y = -40, d = 'M'+x.toFixed(0)+' '+y;
+    while(y < 12060){
+      var nx = Math.max(20, Math.min(980, x + (r()-.5)*780)), ny = y + 340 + r()*200, c1, c2;
+      if(r() < .22){ c1 = [x + (r()>.5?1:-1)*(240+r()*220), ny + 150]; c2 = [nx + (r()>.5?1:-1)*(240+r()*220), y - 70]; }
+      else { c1 = [x + (r()-.5)*440, y + (ny-y)*.4]; c2 = [nx + (r()-.5)*440, y + (ny-y)*.75]; }
       d += ' C'+c1[0].toFixed(0)+' '+c1[1].toFixed(0)+','+c2[0].toFixed(0)+' '+c2[1].toFixed(0)+','+nx.toFixed(0)+' '+ny.toFixed(0);
       x = nx; y = ny;
     }
-    var el = document.createElementNS('http://www.w3.org/2000/svg','path');
-    el.setAttribute('d',d); el.setAttribute('pathLength','1');
-    el.style.stroke = p.c; el.style.strokeWidth = p.w; el.style.opacity = p.o;
-    if(rm) el.style.strokeDashoffset = 0;
-    svg.appendChild(el); spine.push({el:el,s:p.s});
+    var f = small ? .7 : 1, layers = [];
+    if(p.g){                                   // a soft glow: three wide, faint strokes under the line
+      layers.push(mkPath(d, p.c, p.w*6.5*f, .05));
+      layers.push(mkPath(d, p.c, p.w*3.6*f, .09));
+      layers.push(mkPath(d, p.c, p.w*2.0*f, .16));
+    }
+    layers.push(mkPath(d, p.c, p.w*f, p.o));
+    spine.push({els:layers, k:p.k});
   });
 
   /* ---------- the data: courses.json is the only thing to edit ---------- */
@@ -1255,7 +1270,15 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     ticking = false;
     var doc = document.scrollingElement || document.documentElement;
     var prog = doc.scrollTop / Math.max(1, doc.scrollHeight - doc.clientHeight);
-    if(!rm) spine.forEach(function(p){ p.el.style.strokeDashoffset = 1 - Math.min(1, prog*p.s + .015); });
+    if(!rm){
+      var pageH = Math.max(1, doc.scrollHeight);
+      spine.forEach(function(p){
+        // each pen runs a little ahead of the reader at its own pace, and every pen reaches the bottom
+        var t = Math.max(prog, Math.min(1, (doc.scrollTop + window.innerHeight * p.k) / pageH));
+        var off = String(1 - t);
+        for(var i=0;i<p.els.length;i++) p.els[i].style.strokeDashoffset = off;
+      });
+    }
     var mid = window.innerHeight*.4, at = secs[0];
     secs.forEach(function(s){ if(s.getBoundingClientRect().top <= mid) at = s; });
     var k = at.dataset.k + at.dataset.name;
