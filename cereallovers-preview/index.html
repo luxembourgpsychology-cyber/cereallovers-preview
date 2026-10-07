@@ -99,8 +99,8 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 
 /* the ink spine: seven pens drawing down the whole page */
 #spine{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:hidden}
-#spine svg{width:100%;height:100%;display:block}
-#spine path{fill:none;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;stroke-dasharray:1 1.02;stroke-dashoffset:1}
+#spine svg{position:absolute;left:0;width:100%;display:block;overflow:hidden}
+#spine path{fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1.02;stroke-dashoffset:1}
 
 /* header: logo left, the numbers right (design system: the numbers are the navigation) */
 .top{position:fixed;inset:0 0 auto 0;height:60px;z-index:50;background:var(--paper);border-bottom:1px solid var(--ink);
@@ -431,7 +431,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 #fin .st3{right:8%;top:40px;width:150px;height:150px;--s:var(--acid);--w:4}
 
 /* foot: the index, the control strip, one legal line */
-.foot{background:var(--paper);padding:46px 0 110px;border-top:2px solid var(--ink)}
+.foot{position:relative;background:var(--paper);padding:46px 0 110px;border-top:2px solid var(--ink)}
 .foot .gi{--h:30px;color:var(--ink)}
 .idx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 30px;margin:22px 0 40px}
 .idx a{display:flex;gap:12px;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:9px;text-decoration:none}
@@ -554,7 +554,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 </a>
 
 <div class="page" id="page">
-<div id="spine" aria-hidden="true"><svg id="spineSvg" viewBox="0 0 1000 12000" preserveAspectRatio="none"></svg></div>
+<div id="spine" aria-hidden="true"></div>
 
 <!-- ================= L'ACADÉMIE ================= -->
 <section id="s1" data-k="1" data-name="courses">
@@ -935,7 +935,6 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     <svg class="sc pop st3" viewBox="0 0 240 240" aria-hidden="true"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg>
   </div>
 </section>
-</div>
 
 <footer class="foot">
   <div class="wrap">
@@ -966,6 +965,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       <span>HELLO@CEREALLOVERS.LU</span><span>@CEREALLOVES</span><span>COFFEELOVERS.LU</span><span>FR / EN / DE</span><span>CONCEPT &#183; PRIVATE PREVIEW</span></div>
   </div>
 </footer>
+</div>
 
 
 <noscript><p style="position:fixed;left:0;right:0;top:60px;z-index:60;margin:0;padding:12px 20px;background:#000;color:#fff;font:14px/1.4 Helvetica,Arial,sans-serif">
@@ -1021,51 +1021,63 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     {c:'#e8ff3a',w:8.0,o:.30,k:1.9,g:1, seed:97}, {c:'#5fc5bf',w:2.4,o:.65,k:1.45,g:0, seed:79},
     {c:'#ffffff',w:1.8,o:.70,k:1.55,g:1, seed:151}
   ];
-  var svg = $('#spineSvg'), spine = [], small = window.innerWidth < 600;
+  // The lines are drawn at the page's real pixel size (no stretching, so every line can draw all the
+  // way down), in stacked bands of at most ~2400px, because browsers stop painting one very tall image.
+  var spineBox = $('#spine'), spine = [], builtW = 0, builtH = 0;
+  pens.forEach(function(p, i){ spine.push({n:i, k:p.k, t:0}); });
   function rng(seed){ return function(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }; }
-  function mkPath(d, col, w, o){
-    var el = document.createElementNS('http://www.w3.org/2000/svg','path');
-    el.setAttribute('d', d); el.setAttribute('pathLength','1');
-    el.style.stroke = col; el.style.strokeWidth = w; el.style.opacity = o;
-    if(rm) el.style.strokeDashoffset = 0;
-    svg.appendChild(el); return el;
-  }
-  pens.forEach(function(p){
-    var r = rng(p.seed), x = 60 + r()*880, y = -40, d = 'M'+x.toFixed(0)+' '+y;
-    var cl = function(v){ return Math.max(12, Math.min(988, v)); }, n = function(v){ return v.toFixed(0); };
-    while(y < 12060){
+  function penPath(p, W, H){
+    var r = rng(p.seed), sm = W < 600 ? .62 : 1, x = 12 + r()*(W-24), y = -40, d = 'M'+x.toFixed(0)+' '+y;
+    var cl = function(v){ return Math.max(10, Math.min(W-10, v)); }, n = function(v){ return v.toFixed(0); };
+    while(y < H + 60){
       var roll = r();
       if(roll < .17){                                   // a twirl: one or two loops, tightening
-        var R = 26 + r()*60, dir = r() < .5 ? 1 : -1, turns = 1 + r()*.9, a = r()*Math.PI*2;
+        var R = (26 + r()*60)*sm, dir = r() < .5 ? 1 : -1, turns = 1 + r()*.9, a = r()*Math.PI*2;
         var cx = x - Math.cos(a)*R, cy = y - Math.sin(a)*R, steps = Math.ceil(turns*4), da = dir*turns*Math.PI*2/steps;
         for(var i=0;i<steps;i++){
           var r0 = R*(1 - .45*i/steps), r1 = R*(1 - .45*(i+1)/steps), a0 = a + da*i, a1 = a0 + da, h = 4/3*Math.tan(da/4);
           var x0 = cx + Math.cos(a0)*r0, y0 = cy + Math.sin(a0)*r0, x1 = cx + Math.cos(a1)*r1, y1 = cy + Math.sin(a1)*r1;
           d += ' C'+n(x0 - Math.sin(a0)*r0*h)+' '+n(y0 + Math.cos(a0)*r0*h)+','+n(x1 + Math.sin(a1)*r1*h)+' '+n(y1 - Math.cos(a1)*r1*h)+','+n(x1)+' '+n(y1);
-          cy += 9;                                      // the loops drift down a little as they turn
-          x = x1; y = y1;
+          cy += 9*sm; x = x1; y = y1;
         }
       } else if(roll < .21){                            // now and then, a short zig-zag
         var k2 = 3 + Math.floor(r()*3), side = r() < .5 ? 1 : -1;
-        for(var j=0;j<k2;j++){ x = cl(x + side*(30 + r()*70)); y += 20 + r()*36; side = -side; d += ' L'+n(x)+' '+n(y); }
+        for(var j=0;j<k2;j++){ x = cl(x + side*(30 + r()*70)*sm); y += (20 + r()*36)*sm; side = -side; d += ' L'+n(x)+' '+n(y); }
       } else if(roll < .30){                            // a big swing right across the page
-        var tx = r() < .5 ? 40 + r()*200 : 760 + r()*200, ty = y + 160 + r()*260;
-        d += ' C'+n(x)+' '+n(y + 260)+','+n(tx)+' '+n(ty - 300)+','+n(tx)+' '+n(ty); x = tx; y = ty;
+        var tx = r() < .5 ? W*(.04 + r()*.2) : W*(.76 + r()*.2), ty = y + (160 + r()*260)*sm;
+        d += ' C'+n(x)+' '+n(y + 260*sm)+','+n(tx)+' '+n(ty - 300*sm)+','+n(tx)+' '+n(ty); x = tx; y = ty;
       } else {                                          // wander
-        var nx = cl(x + (r()-.5)*700), ny = y + 160 + r()*300;
-        d += ' C'+n(x + (r()-.5)*460)+' '+n(y + (ny-y)*.35)+','+n(nx + (r()-.5)*460)+' '+n(y + (ny-y)*.8)+','+n(nx)+' '+n(ny);
+        var nx = cl(x + (r()-.5)*W*.7), ny = y + (160 + r()*300)*sm;
+        d += ' C'+n(x + (r()-.5)*W*.46)+' '+n(y + (ny-y)*.35)+','+n(nx + (r()-.5)*W*.46)+' '+n(y + (ny-y)*.8)+','+n(nx)+' '+n(ny);
         x = nx; y = ny;
       }
     }
-    var f = small ? .7 : 1, layers = [];
-    if(p.g){                                   // a soft glow: three wide, faint strokes under the line
-      layers.push(mkPath(d, p.c, p.w*6*f, .03));
-      layers.push(mkPath(d, p.c, p.w*3.4*f, .06));
-      layers.push(mkPath(d, p.c, p.w*1.9*f, .10));
+    return d;
+  }
+  function buildSpine(){
+    var W = spineBox.clientWidth, H = spineBox.clientHeight;
+    if(!W || !H || (W === builtW && Math.abs(H - builtH) < 40)) return;
+    builtW = W; builtH = H; spineBox.textContent = '';
+    var band = 2400, nb = Math.ceil(H / band), f = W < 600 ? .75 : 1, ds = pens.map(function(p){ return penPath(p, W, H); });
+    for(var b=0;b<nb;b++){
+      var bs = document.createElementNS('http://www.w3.org/2000/svg','svg'), y0 = b*band, bh = Math.min(band, H - y0) + 2;
+      bs.setAttribute('viewBox', '0 '+y0+' '+W+' '+bh); bs.style.top = y0+'px'; bs.style.height = bh+'px';
+      pens.forEach(function(p, i){
+        var add = function(w, o){
+          var el = document.createElementNS('http://www.w3.org/2000/svg','path');
+          el.setAttribute('d', ds[i]); el.setAttribute('pathLength','1');
+          el.style.stroke = p.c; el.style.strokeWidth = w; el.style.opacity = o;
+          el.style.strokeDashoffset = rm ? 0 : 'var(--o'+i+',1)';      // one shared value per pen
+          bs.appendChild(el);
+        };
+        if(p.g){ add(p.w*6*f, .03); add(p.w*3.4*f, .06); add(p.w*1.9*f, .10); }   // a soft glow under the line
+        add(p.w*f, p.o);
+      });
+      spineBox.appendChild(bs);
     }
-    layers.push(mkPath(d, p.c, p.w*f, p.o));
-    spine.push({els:layers, k:p.k, t:0});
-  });
+  }
+  buildSpine();
+  if('ResizeObserver' in window){ var rbT; new ResizeObserver(function(){ clearTimeout(rbT); rbT = setTimeout(buildSpine, 150); }).observe(spineBox); }
 
   /* ---------- the data: courses.json is the only thing to edit ---------- */
   var DATA = null, TODAY = new Date(); TODAY.setHours(0,0,0,0);
@@ -1289,12 +1301,10 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     if(!rm){
       var pageH = Math.max(1, doc.scrollHeight);
       spine.forEach(function(p){
-        // each pen runs a little ahead of the reader at its own pace, and every pen reaches the bottom
         // runs well ahead of the reader, finishes at the bottom, and never rubs itself out
         var t = Math.max(p.t, prog, Math.min(1, (doc.scrollTop + window.innerHeight * p.k) / pageH));
         if(t === p.t) return; p.t = t;
-        var off = String(1 - t);
-        for(var i=0;i<p.els.length;i++) p.els[i].style.strokeDashoffset = off;
+        spineBox.style.setProperty('--o'+p.n, String(Math.max(0, 1 - t)));
       });
     }
     var mid = window.innerHeight*.4, at = secs[0];
