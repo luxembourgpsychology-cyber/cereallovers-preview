@@ -1022,36 +1022,45 @@ h2{font-size:clamp(44px,7.4vw,108px)}
   ];
   // The lines are drawn at the page's real pixel size (no stretching, so every line can draw all the
   // way down), in stacked bands of at most ~2400px, because browsers stop painting one very tall image.
-  var spineBox = $('#spine'), spine = [], builtW = 0, builtH = 0;
-  pens.forEach(function(p, i){ spine.push({n:i, k:p.k, t:0}); });
+  var spineBox = $('#spine'), spine = [], builtW = 0, builtH = 0, bandEls = [], animating = false;
+  pens.forEach(function(p, i){ spine.push({n:i, k:p.k, t:0, d:0}); });
   function rng(seed){ return function(){ seed = (seed*16807) % 2147483647; return (seed-1)/2147483646; }; }
   function penPath(p, W, H){
-    var r = rng(p.seed), sm = W < 600 ? .62 : 1, pts = [], x = 20 + r()*(W-40), y = -60, vx = (r()-.5)*W*.2;
-    pts.push([x, y - 80]); pts.push([x, y]);
-    while(y < H + 120){
-      if(r() < .12){                                    // a loose loop, then carry on down
-        var R = (34 + r()*54)*sm, dir = r() < .5 ? 1 : -1, a = -Math.PI/2*dir, cx = x + R*dir, cy = y, m = 7;
-        for(var i=1;i<=m;i++){ var aa = a + dir*i*(Math.PI*2/m)*1.05, rr = R*(1 - .18*i/m);
-          pts.push([cx - Math.cos(aa)*rr*dir, cy + Math.sin(aa)*rr + i*5*sm]); }
+    var r = rng(p.seed), sm = W < 600 ? .62 : 1, pts = [], x = W*(.1 + r()*.8), y = -80, vx = (r()-.5)*W*.15;
+    var lo = W*.05, hi = W*.95;
+    pts.push([x, y - 160]); pts.push([x, y]);
+    while(y < H + 160){
+      if(r() < .12){                                    // a loop that leaves and rejoins the line, drifting down
+        var R = (36 + r()*50)*sm, dir = (x < W/2) ? 1 : -1, turns = r() < .7 ? 1 : 1.6;
+        var cx = x + dir*R, cy = y, steps = Math.round(8*turns);
+        for(var i=1;i<=steps;i++){
+          var sArc = i/steps*Math.PI*2*turns, th = dir > 0 ? Math.PI - sArc : sArc, rr = R*(1 - .2*i/steps);
+          pts.push([cx + Math.cos(th)*rr, cy + Math.sin(th)*rr + i*R*.09]);
+        }
         x = pts[pts.length-1][0]; y = pts[pts.length-1][1];
       }
-      vx = vx*.55 + (r()-.5)*W*.42;                      // momentum makes it meander instead of jitter
-      x = Math.max(16, Math.min(W-16, x + vx)); if(x < 30 || x > W-30) vx = -vx*.5;
-      y += (170 + r()*230)*sm;
+      vx = vx*.6 + (r()-.5)*W*.36;                       // momentum: it meanders instead of jittering
+      var nx = x + vx; if(nx < lo || nx > hi){ vx = -vx*.6; nx = x + vx; }
+      x = Math.max(lo, Math.min(hi, nx));
+      y += (190 + r()*220)*sm;
       pts.push([x, y]);
     }
-    pts.push([x, y + 200]);
+    pts.push([x, y + 240]);
     var n = function(v){ return v.toFixed(1); }, d = 'M'+n(pts[1][0])+' '+n(pts[1][1]);
-    for(var j=1;j<pts.length-2;j++){                      // Catmull-Rom through the points: smooth, no kinks
+    var dist = function(a, b){ return Math.max(1e-3, Math.pow(Math.hypot(b[0]-a[0], b[1]-a[1]), .5)); };
+    for(var j=1;j<pts.length-2;j++){                      // centripetal Catmull-Rom: smooth everywhere
       var p0 = pts[j-1], p1 = pts[j], p2 = pts[j+1], p3 = pts[j+2];
-      d += ' C'+n(p1[0]+(p2[0]-p0[0])/6)+' '+n(p1[1]+(p2[1]-p0[1])/6)+','+n(p2[0]-(p3[0]-p1[0])/6)+' '+n(p2[1]-(p3[1]-p1[1])/6)+','+n(p2[0])+' '+n(p2[1]);
+      var d1 = dist(p0,p1), d2 = dist(p1,p2), d3 = dist(p2,p3);
+      var b1 = [0,1].map(function(k){ return (d1*d1*p2[k] - d2*d2*p0[k] + (2*d1*d1 + 3*d1*d2 + d2*d2)*p1[k]) / (3*d1*(d1+d2)); });
+      var b2 = [0,1].map(function(k){ return (d3*d3*p1[k] - d2*d2*p3[k] + (2*d3*d3 + 3*d3*d2 + d2*d2)*p2[k]) / (3*d3*(d3+d2)); });
+      d += ' C'+n(b1[0])+' '+n(b1[1])+','+n(b2[0])+' '+n(b2[1])+','+n(p2[0])+' '+n(p2[1]);
     }
     return d;
   }
   function buildSpine(){
     var W = spineBox.clientWidth, H = spineBox.clientHeight;
     if(!W || !H || (W === builtW && Math.abs(H - builtH) < 40)) return;
-    builtW = W; builtH = H; spineBox.textContent = '';
+    builtW = W; builtH = H; spineBox.textContent = ''; bandEls = [];
     var band = 2400, nb = Math.ceil(H / band), f = W < 600 ? .75 : 1, ds = pens.map(function(p){ return penPath(p, W, H); });
     for(var b=0;b<nb;b++){
       var bs = document.createElementNS('http://www.w3.org/2000/svg','svg'), y0 = b*band, bh = Math.min(band, H - y0) + 2;
@@ -1064,13 +1073,13 @@ h2{font-size:clamp(44px,7.4vw,108px)}
           el.style.strokeDashoffset = rm ? 0 : 'var(--o'+i+',1)';      // one shared value per pen
           bs.appendChild(el);
         };
-        if(p.g){ add(p.w*6*f, .03); add(p.w*3.4*f, .06); add(p.w*1.9*f, .10); }   // a soft glow under the line
+        if(p.g){ add(p.w*4.6*f, .045); add(p.w*2.2*f, .10); }   // a soft glow under the line
         add(p.w*f, p.o);
       });
-      spineBox.appendChild(bs);
+      spineBox.appendChild(bs); bandEls.push({el:bs, y0:y0, y1:y0+bh, vals:[]});
     }
     var first = spineBox.querySelector('svg'), mains = first ? first.querySelectorAll('path') : [], per = [];
-    pens.forEach(function(p){ per.push(p.g ? 4 : 1); });
+    pens.forEach(function(p){ per.push(p.g ? 3 : 1); });
     var idx = 0;
     pens.forEach(function(p, i){
       idx += per[i]; var el = mains[idx-1]; if(!el) return;
@@ -1079,6 +1088,21 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       spine[i].ys = ys; spine[i].fr = fr;
     });
     if(typeof onScroll === 'function') onScroll();      // redraw straight away, no waiting for the next scroll
+  }
+  // only the bands on (or near) the screen get their values updated: far less work while scrolling
+  function paintBands(){
+    var doc = document.scrollingElement || document.documentElement, top = doc.scrollTop - 500, bot = doc.scrollTop + window.innerHeight + 500;
+    bandEls.forEach(function(b){
+      if(b.y1 < top || b.y0 > bot) return;
+      spine.forEach(function(p, i){ var v = (1 - p.d).toFixed(4); if(b.vals[i] !== v){ b.vals[i] = v; b.el.style.setProperty('--o'+i, v); } });
+    });
+  }
+  // the tip glides toward the reader's position instead of jumping with each scroll step
+  function glide(){
+    var moving = false;
+    spine.forEach(function(p){ var diff = p.t - p.d; if(diff > .0004){ p.d += diff*.12; moving = true; } else p.d = p.t; });
+    paintBands();
+    if(moving) requestAnimationFrame(glide); else animating = false;
   }
   buildSpine();
   window.addEventListener('load', function(){ buildSpine(); onScroll(); });
@@ -1311,10 +1335,10 @@ h2{font-size:clamp(44px,7.4vw,108px)}
         if(p.ys){ var lo = 0, hi = p.ys.length - 1; while(lo < hi){ var mid = (lo + hi) >> 1; if(p.ys[mid] < target) lo = mid + 1; else hi = mid; } t = p.fr[lo]; }
         else t = Math.min(1, target / pageH);
         if(prog > .995) t = 1;
-        t = Math.max(p.t, t);
-        if(t === p.t) return; p.t = t;
-        spineBox.style.setProperty('--o'+p.n, String(Math.max(0, 1 - t)));
+        p.t = Math.max(p.t, t);
       });
+      if(!animating){ animating = true; requestAnimationFrame(glide); }
+      paintBands();
     }
     var mid = window.innerHeight*.4, at = secs[0];
     secs.forEach(function(s){ if(s.getBoundingClientRect().top <= mid) at = s; });
