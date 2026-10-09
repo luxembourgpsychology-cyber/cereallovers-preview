@@ -1314,7 +1314,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       pts.push([x, y]);
     }
     pts.push([x, y + 240]);
-    var n = function(v){ return v.toFixed(1); }, d = 'M'+n(pts[1][0])+' '+n(pts[1][1]);
+    var n = function(v){ return v.toFixed(1); }, d = 'M'+n(pts[1][0])+' '+n(pts[1][1]), segs = [];
     var dist = function(a, b){ return Math.max(1e-3, Math.pow(Math.hypot(b[0]-a[0], b[1]-a[1]), .5)); };
     for(var j=1;j<pts.length-2;j++){                      // centripetal Catmull-Rom: smooth everywhere
       var p0 = pts[j-1], p1 = pts[j], p2 = pts[j+1], p3 = pts[j+2];
@@ -1322,14 +1322,34 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       var b1 = [0,1].map(function(k){ return (d1*d1*p2[k] - d2*d2*p0[k] + (2*d1*d1 + 3*d1*d2 + d2*d2)*p1[k]) / (3*d1*(d1+d2)); });
       var b2 = [0,1].map(function(k){ return (d3*d3*p1[k] - d2*d2*p3[k] + (2*d3*d3 + 3*d3*d2 + d2*d2)*p2[k]) / (3*d3*(d3+d2)); });
       d += ' C'+n(b1[0])+' '+n(b1[1])+','+n(b2[0])+' '+n(b2[1])+','+n(p2[0])+' '+n(p2[1]);
+      segs.push([p1[0],p1[1],b1[0],b1[1],b2[0],b2[1],p2[0],p2[1]]);
     }
-    return d;
+    return {d:d, segs:segs};
+  }
+  // where the line has reached, in page y, for each fraction of its length. Worked out from the curves
+  // themselves: asking the browser (getPointAtLength) froze the page for seconds on a tall page.
+  function lengthTable(segs, M){
+    var acc = [0], yy = [segs.length ? segs[0][1] : 0], L = 0, px = segs.length ? segs[0][0] : 0, py = yy[0], S = 24;
+    segs.forEach(function(s){
+      for(var k=1;k<=S;k++){
+        var u = k/S, v = 1-u, a = v*v*v, b = 3*v*v*u, c = 3*v*u*u, e = u*u*u;
+        var x = a*s[0] + b*s[2] + c*s[4] + e*s[6], y = a*s[1] + b*s[3] + c*s[5] + e*s[7];
+        L += Math.hypot(x-px, y-py); px = x; py = y; acc.push(L); yy.push(y);
+      }
+    });
+    var ys = [], fr = [], top = -1e9, j = 0;
+    for(var q=0;q<=M;q++){
+      var want = L*q/M; while(j < acc.length-2 && acc[j+1] < want) j++;
+      var span = acc[j+1] - acc[j], f = span > 0 ? (want - acc[j]) / span : 0;
+      top = Math.max(top, yy[j] + (yy[j+1] - yy[j]) * Math.min(1, Math.max(0, f))); ys.push(top); fr.push(q/M);
+    }
+    return {ys:ys, fr:fr};
   }
   function buildSpine(){
     var W = spineBox.clientWidth, H = spineBox.clientHeight;
     if(!W || !H || (W === builtW && Math.abs(H - builtH) < 40)) return;
     builtW = W; builtH = H; spineBox.textContent = ''; bandEls = [];
-    var band = 2400, nb = Math.ceil(H / band), f = W < 600 ? .75 : 1, ds = pens.map(function(p){ return penPath(p, W, H); });
+    var band = 2400, nb = Math.ceil(H / band), f = W < 600 ? .75 : 1, built = pens.map(function(p){ return penPath(p, W, H); }), ds = built.map(function(b){ return b.d; });
     for(var b=0;b<nb;b++){
       var bs = document.createElementNS('http://www.w3.org/2000/svg','svg'), y0 = b*band, bh = Math.min(band, H - y0) + 2;
       bs.setAttribute('viewBox', '0 '+y0+' '+W+' '+bh); bs.style.top = y0+'px'; bs.style.height = bh+'px';
@@ -1346,15 +1366,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
       });
       spineBox.appendChild(bs); bandEls.push({el:bs, y0:y0, y1:y0+bh, vals:[]});
     }
-    var first = spineBox.querySelector('svg'), mains = first ? first.querySelectorAll('path') : [], per = [];
-    pens.forEach(function(p){ per.push(p.g ? 3 : 1); });
-    var idx = 0;
-    pens.forEach(function(p, i){
-      idx += per[i]; var el = mains[idx-1]; if(!el) return;
-      var L = el.getTotalLength(), M = 360, ys = [], fr = [], top = -1e9;
-      for(var q=0;q<=M;q++){ var pt = el.getPointAtLength(L*q/M); top = Math.max(top, pt.y); ys.push(top); fr.push(q/M); }
-      spine[i].ys = ys; spine[i].fr = fr;
-    });
+    pens.forEach(function(p, i){ var tb = lengthTable(built[i].segs, 360); spine[i].ys = tb.ys; spine[i].fr = tb.fr; });
     if(typeof onScroll === 'function') onScroll();      // redraw straight away, no waiting for the next scroll
   }
   // only the bands on (or near) the screen get their values updated: far less work while scrolling
