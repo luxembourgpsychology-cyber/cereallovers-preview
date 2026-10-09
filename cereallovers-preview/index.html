@@ -538,6 +538,41 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 .wob{animation:wob .7s .35s 1}
 @keyframes wob{0%,100%{rotate:-2deg}30%{rotate:3deg;scale:1.06}60%{rotate:-4deg}}
 
+/* news: the strip on top, autumn 2026 */
+#news{background:var(--cobalt);color:#fff;padding:100px 0 66px;border-bottom:2px solid var(--ink)}
+#news .eye{color:var(--acid);margin-bottom:14px}
+.nw-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 40px}
+#news h2{font-size:clamp(46px,6.6vw,96px);color:#fff}
+.nw-head .hand{max-width:24ch;color:#fff}
+.nw{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:30px 26px;margin-top:40px;align-items:start}
+.nc{position:relative;isolation:isolate;background:var(--c);color:var(--ink);border:2px solid var(--ink);padding:24px 20px 20px;
+  rotate:var(--rot);box-shadow:8px 8px 0 var(--ink);transition:rotate .15s, translate .15s}
+.nc:hover{rotate:0deg;translate:0 -4px}
+#news .nc .eye{color:var(--ink);margin:0}
+.nc h3{font-size:clamp(36px,3.8vw,56px);margin:12px 0 12px}
+.nc .d{font:700 clamp(20px,1.9vw,26px)/1 var(--sans);letter-spacing:-.03em;margin:0}
+.nc .n{font:700 11px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase;margin:8px 0 14px;padding-top:8px;border-top:2px dashed var(--ink)}
+.nc .hand{font-size:clamp(19px,1.8vw,24px)}
+.nc .pen{color:var(--ink);font-size:clamp(22px,2vw,28px);margin-top:12px}
+.nc .splat{left:-24%;top:-34%;width:80%;height:110%}
+.sticker{position:absolute;top:-17px;right:16px;z-index:3;background:var(--red);color:#fff;font-family:var(--mk);font-size:15px;line-height:1;
+  padding:8px 10px 6px;border:2px solid var(--ink);rotate:6deg}
+.ex{display:grid;grid-template-columns:minmax(0,1fr) 148px;gap:18px;align-items:start}
+.qr{position:relative;margin:4px 0 0;rotate:3deg}
+.qr img{width:100%;height:auto;aspect-ratio:1;image-rendering:pixelated}
+.qr figcaption{font-family:var(--mk);font-size:16px;line-height:1;text-align:center;margin-top:8px}
+.nc .nbtn{display:inline-block;margin-top:14px;font:700 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;
+  background:var(--ink);color:var(--acid);padding:13px 14px;text-decoration:none}
+.nc .nbtn:hover{background:var(--red);color:#fff}
+.back{font-family:var(--mk);font-size:clamp(30px,2.8vw,50px);line-height:.92;margin:12px 0 8px;overflow-wrap:anywhere}
+.psl{font:700 clamp(20px,2vw,26px)/1 var(--sans);text-transform:uppercase;letter-spacing:-.02em;margin:0 0 12px}
+.ex h3{font-size:clamp(30px,3vw,48px)}
+.nc:has(.ic){padding-bottom:78px}
+.nc .ic{right:10px;bottom:8px;width:74px;height:62px;z-index:-1}
+@media (max-width:960px){.nw{grid-template-columns:1fr 1fr}.nw .nc:first-child{grid-column:1 / -1}}
+@media (max-width:620px){#news{padding:84px 0 50px}.nw{grid-template-columns:1fr;gap:34px}.ex{grid-template-columns:1fr}.qr{width:150px;rotate:-3deg}
+  .nc{box-shadow:5px 5px 0 var(--ink)}}
+
 /* ===== responsive ===== */
 @media (max-width:1060px){
   .jar{padding:44px 24px 50px}
@@ -652,6 +687,54 @@ h2{font-size:clamp(44px,7.4vw,108px)}
 
 <div class="page" id="page">
 <div id="spine" aria-hidden="true"></div>
+
+<!-- ================= NEWS ================= -->
+<section id="news" aria-label="Actus">
+  <div class="wrap">
+    <div class="nw-head">
+      <div><p class="eye">ACTUS &#183; TOUT CHAUD &#183; AUTOMNE 2026</p>
+        <h2>Tout<br><span class="mark">chaud.<svg class="sc dr" viewBox="0 0 500 110" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M 30 68 L 466 28 M 27 88 L 467 49" style="--s:var(--marker);--w:24"/></svg></span></h2></div>
+      <p class="hand">trois choses à savoir. tout de suite.</p>
+    </div>
+    <div class="nw">
+      <article class="nc" style="--c:var(--acid);--rot:-1.2deg">
+        <span class="splat-host" data-seed="64" data-c="#ef4ea2" aria-hidden="true"></span>
+        <span class="sticker">À VOS AGENDAS</span>
+        <div class="ex">
+          <div>
+            <p class="eye">BARISTA ACADEMY &#183; EN TOURNÉE</p>
+            <h3>On sera à<br>ExpoGast&#160;!</h3>
+            <p class="d">Sam. 21 nov. &#183; 11 h&#8211;18 h</p>
+            <p class="n">Luxexpo The Box &#183; hall principal &#183; espace Horesca</p>
+            <p class="hand">la Barista Academy part en tournée. venez verser avec nous. ça va être TROP bien.</p>
+            <a class="nbtn" href="https://cl-barista-academy.vercel.app/qr" target="_blank" rel="noopener">La Barista Academy &#8594;</a>
+          </div>
+          <figure class="snap qr"><span class="tape" aria-hidden="true"></span>
+            <img src="img/b2/news/qr-academy.svg" alt="QR code vers la page de la Barista Academy" width="296" height="296">
+            <figcaption>scannez-moi</figcaption></figure>
+        </div>
+        <svg class="sc pop" viewBox="0 0 240 240" style="left:-26px;bottom:-30px;width:70px;height:70px;--s:var(--red);--w:3" aria-hidden="true"><path d="M 114 15 L 128 87 L 184 26 L 151 95 L 225 88 L 159 122 L 215 171 L 147 146 L 151 223 L 121 156 L 60 210 L 91 143 L 16 151 L 83 118 L 29 62 L 98 88 Z"/></svg>
+      </article>
+      <article class="nc" style="--c:var(--marker);--rot:1.6deg">
+        <span class="splat-host" data-seed="73" data-c="#e8ff3a" aria-hidden="true"></span>
+        <p class="eye">LE BAGEL DU MOIS</p>
+        <h3>Thon-<br>mayo.</h3>
+        <p class="hand">Steve, Sergio et Siggi, voici le petit nouveau. du thon. de la mayo. un bagel. zéro excuse.</p>
+        <p class="pen">ce mois-ci seulement. après, il repart à la nage.</p>
+        <svg class="sc dr ic" viewBox="0 0 120 100" aria-hidden="true"><path pathLength="1" d="M 12 50 C 32 18 74 18 92 50 C 74 82 32 82 12 50 Z M 92 50 L 112 30 L 112 70 Z M 30 44 L 31 45" style="--s:var(--ink);--w:3"/></svg>
+      </article>
+      <article class="nc" style="--c:var(--orange);--rot:-.8deg">
+        <span class="splat-host" data-seed="88" data-c="#e8ff3a" aria-hidden="true"></span>
+        <span class="sticker" style="background:var(--acid);color:var(--ink);rotate:-5deg">CHOUCHOU</span>
+        <p class="eye">LA BOISSON CHOUCHOU EST</p>
+        <p class="back">DE RETOOOUUUR</p>
+        <p class="psl">Pumpkin spice latte</p>
+        <p class="hand">préparé minute avec de vraies citrouilles !!! la saison des gros pulls, dans une tasse.</p>
+        <svg class="sc dr ic" viewBox="0 0 120 110" aria-hidden="true"><path pathLength="1" d="M 60 30 C 20 30 8 62 20 82 C 32 102 88 102 100 82 C 112 62 100 30 60 30 M 60 30 C 46 50 46 82 60 100 M 60 30 C 74 50 74 82 60 100 M 60 30 L 62 14 C 66 9 73 11 76 16" style="--s:var(--ink);--w:3"/></svg>
+      </article>
+    </div>
+  </div>
+</section>
 
 <!-- ================= L'ACADÉMIE ================= -->
 <section id="s1" data-k="1" data-name="les cours">
@@ -959,7 +1042,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
           <img class="cut b2" src="img/b2/eat/bagel-vegan.webp" alt="Bagel vegan au concombre, radis et salade" loading="lazy">
           <span class="tag tr">classique</span><span class="tag tv">vegan</span></div>
         <h3>Bagels</h3>
-        <ul class="menu"><li><b>Steve</b><span>cream cheese, tomate, concombre</span></li><li><b>Sergio</b><span>+ jambon, basilic</span></li><li><b>Siggi</b><span>+ saumon fumé, aneth</span></li><li class="vg"><b>Sam</b><span>houmous, oignon, poivron</span></li><li class="vg"><b>Simon</b><span>cream cheese vegan</span></li><li class="vg"><b>Spencer</b><span>+ tofu fumé</span></li><li class="vg"><b>Sophie</b><span>cream cheese vegan ou classique</span></li><li class="month"><b>Bagel du mois</b><span>demandez à l’équipe</span></li></ul>
+        <ul class="menu"><li><b>Steve</b><span>cream cheese, tomate, concombre</span></li><li><b>Sergio</b><span>+ jambon, basilic</span></li><li><b>Siggi</b><span>+ saumon fumé, aneth</span></li><li class="vg"><b>Sam</b><span>houmous, oignon, poivron</span></li><li class="vg"><b>Simon</b><span>cream cheese vegan</span></li><li class="vg"><b>Spencer</b><span>+ tofu fumé</span></li><li class="vg"><b>Sophie</b><span>cream cheese vegan ou classique</span></li><li class="month"><b>Bagel du mois</b><span>thon-mayo</span></li></ul>
       </article>
       <article class="eatc">
         <div class="eat-pics"><span class="splat-host" data-seed="33" data-c="#e8ff3a" aria-hidden="true"></span><span class="splat-host" data-seed="58" data-c="#5fc5bf" aria-hidden="true"></span>
@@ -1181,7 +1264,7 @@ h2{font-size:clamp(44px,7.4vw,108px)}
     ['0 0 100 100','M10 30 L40 8 M8 52 L62 10 M10 74 L84 12 M22 88 L92 26 M46 90 L92 50']
   ];
   var INKS = ['#ef3936','#001ffc','#ff6b21','#000','#ef4ea2','#8dc15b','#e8ff3a','#5fc5bf'];
-  $$('section:not(#wall)').forEach(function(sec, si){                  // the wall is a pin board, it keeps its own look
+  $$('section:not(#wall):not(#news)').forEach(function(sec, si){                  // the wall is a pin board, it keeps its own look
     var r = rng(1000 + si*97), n = window.innerWidth < 760 ? 2 : 5;
     for(var i=0;i<n;i++){
       var dd = DOOD[Math.floor(r()*DOOD.length)], left = r() < .5;
